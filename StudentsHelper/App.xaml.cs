@@ -1,4 +1,6 @@
-﻿namespace StudentsHelper
+﻿using StudentsHelper.Navigation;
+
+namespace StudentsHelper
 {
     public partial class App : Application
     {

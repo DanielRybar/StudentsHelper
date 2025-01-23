@@ -1,4 +1,4 @@
-﻿namespace StudentsHelper
+﻿namespace StudentsHelper.Navigation
 {
     public partial class AppShell : Shell
     {
