@@ -7,7 +7,7 @@ namespace StudentsHelper
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : MauiAppCompatActivity
     {
-        // zakaz zvetsovani fontu v aplikaci
+        // restrict enlarging fonts in the app
         public override Android.Content.Res.Resources? Resources
         {
             get

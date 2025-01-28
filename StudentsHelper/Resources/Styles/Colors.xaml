@@ -6,7 +6,16 @@
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="MainHelperColor">#3E7B27</Color>
+    <Color x:Key="MainHelperColorDark">#123524</Color>
+    <Color x:Key="MainHelperColorLight">#85A947</Color>
+    <Color x:Key="MainHelperColorBeige">#EFE3C2</Color>
+
+    <Color x:Key="MenuBackgroundColorDark">#111</Color>
+    <Color x:Key="MenuBackgroundColorLight">#EEE</Color>
+
+    <!-- MAUI default colors -->
+    <Color x:Key="Primary">#3E7B27</Color>
     <Color x:Key="PrimaryDark">#ac99ea</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
