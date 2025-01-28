@@ -22,6 +22,7 @@ namespace StudentsHelper
                 });
 
             DependencyService.Register<ILocalStorage, LocalStorage>();
+            DependencyService.Register<INotesManager, NotesManager>();
 
 #if DEBUG
             builder.Logging.AddDebug();
