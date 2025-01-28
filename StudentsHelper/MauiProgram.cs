@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using StudentsHelper.Interfaces;
+using StudentsHelper.Services;
 
 namespace StudentsHelper
 {
@@ -18,6 +20,8 @@ namespace StudentsHelper
                     fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
                 });
+
+            DependencyService.Register<ILocalStorage, LocalStorage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

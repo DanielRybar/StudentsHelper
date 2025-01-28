@@ -22,19 +22,19 @@
         </StackLayout>
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="Poznámky" Icon="{StaticResource NotesIcon}">
+    <FlyoutItem Title="Poznámky" Icon="{StaticResource NotesIcon}" Route="NotesPage">
         <ShellContent ContentTemplate="{DataTemplate views:NotesPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Úkoly" Icon="{StaticResource TasksIcon}">
+    <FlyoutItem Title="Úkoly" Icon="{StaticResource TasksIcon}" Route="TasksPage">
         <ShellContent ContentTemplate="{DataTemplate views:TasksPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Nastavení" Icon="{StaticResource SettingsIcon}">
+    <FlyoutItem Title="Nastavení" Icon="{StaticResource SettingsIcon}" Route="SettingsPage">
         <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="O aplikaci" Icon="{StaticResource InfoIcon}">
+    <FlyoutItem Title="O aplikaci" Icon="{StaticResource InfoIcon}" Route="AboutAppPage">
         <ShellContent ContentTemplate="{DataTemplate views:AboutAppPage}" />
     </FlyoutItem>
 
