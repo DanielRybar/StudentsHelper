@@ -456,11 +456,19 @@
         <Setter Property="Margin" Value="0,40,0,20" />
     </Style>
 
+    <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+    </Style>
+
     <Style TargetType="Label" x:Key="CenteredLabel">
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource CenteredLabel}" x:Key="ShellLabel">
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
     </Style>
 
 </ResourceDictionary>

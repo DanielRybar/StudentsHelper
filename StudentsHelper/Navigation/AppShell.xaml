@@ -17,14 +17,29 @@
 
     <Shell.FlyoutHeader>
         <StackLayout Padding="0,0,0,30">
-            <Image Source="logo.png" Style="{StaticResource ShellLogoStyle}" />
-            <Label Text="Pomocník studenta" Style="{StaticResource CenteredLabel}" />
+            <Image Source="logo_dark.png" Style="{StaticResource ShellLogoStyle}" />
+            <Label Text="Pomocník studenta" Style="{StaticResource ShellLabel}" FontFamily="PoppinsRegular" />
         </StackLayout>
     </Shell.FlyoutHeader>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Poznámky" Icon="{StaticResource NotesIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:NotesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Úkoly" Icon="{StaticResource TasksIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:TasksPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Nastavení" Icon="{StaticResource SettingsIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="O aplikaci" Icon="{StaticResource InfoIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:AboutAppPage}" />
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <Label Text="© Daniel Rybář, 2024" Style="{StaticResource ShellLabel}" Padding="0,0,0,10"/>
+    </Shell.FlyoutFooter>
 
 </Shell>

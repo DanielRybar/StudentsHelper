@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <FontImage
+        x:Key="NotesIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="50"
+        Color="{StaticResource MainHelperColor}"
+        Glyph="&#xf31c;" />
+
+    <FontImage
+        x:Key="TasksIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="50"
+        Color="{StaticResource MainHelperColor}"
+        Glyph="&#xf0ae;" />
+
+    <FontImage
+        x:Key="SettingsIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="50"
+        Color="{StaticResource MainHelperColor}"
+        Glyph="&#xf013;" />
+
+    <FontImage
+        x:Key="InfoIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="50"
+        Color="{StaticResource MainHelperColor}"
+        Glyph="&#xf05a;" />
+
+</ResourceDictionary>
