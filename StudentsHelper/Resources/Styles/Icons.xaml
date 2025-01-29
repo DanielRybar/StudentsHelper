@@ -32,4 +32,11 @@
         Color="{StaticResource MainHelperColor}"
         Glyph="&#xf05a;" />
 
+    <FontImageSource
+        x:Key="SortIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf0dc;" />
+
 </ResourceDictionary>
