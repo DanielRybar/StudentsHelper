@@ -35,9 +35,26 @@ namespace StudentsHelper.ViewModels
             );
 
             SortCommand = new Command(
-                () =>
+                (option) =>
                 {
-                    // todo
+                    if (option is NoteSortOption op)
+                    {
+                        switch (op)
+                        {
+                            case NoteSortOption.ByTitle:
+                                Notes = IsSortedByTitleAsc 
+                                    ? new ObservableCollection<NoteItem>(Notes.OrderByDescending(n => n.Title))
+                                    : new ObservableCollection<NoteItem>(Notes.OrderBy(n => n.Title));
+                                IsSortedByTitleAsc = !IsSortedByTitleAsc;
+                                break;
+                            case NoteSortOption.ByDate:
+                                Notes = IsSortedByDateAsc
+                                    ? new ObservableCollection<NoteItem>(Notes.OrderByDescending(n => n.Date))
+                                    : new ObservableCollection<NoteItem>(Notes.OrderBy(n => n.Date));
+                                IsSortedByDateAsc = !IsSortedByDateAsc;
+                                break;
+                        }
+                    }
                 }
             );
         }
@@ -53,6 +70,9 @@ namespace StudentsHelper.ViewModels
         #endregion
 
         #region properties
+        public bool IsSortedByTitleAsc { get; private set; } = false;
+        public bool IsSortedByDateAsc { get; private set; } = false;
+
         public ObservableCollection<NoteItem> Notes
         {
             get => notes;
@@ -70,6 +90,7 @@ namespace StudentsHelper.ViewModels
         private async Task LoadNotes()
         {
             var notes = await notesManager.GetNoteItemsAsync();
+            notes = [.. notes.OrderByDescending(n => n.Date)];
             Notes.Clear();
             foreach (var note in notes)
             {

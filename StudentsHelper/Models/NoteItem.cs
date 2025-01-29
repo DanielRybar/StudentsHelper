@@ -35,4 +35,10 @@ namespace StudentsHelper.Models
             set => SetProperty(ref date, value);
         }
     }
+
+    public enum NoteSortOption
+    {
+        ByTitle,
+        ByDate
+    }
 }
