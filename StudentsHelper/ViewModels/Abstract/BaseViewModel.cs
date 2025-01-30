@@ -21,5 +21,12 @@ namespace StudentsHelper.ViewModels.Abstract
             OnPropertyChanged(propertyName);
             return true;
         }
+
+        bool isBusy = false;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { SetProperty(ref isBusy, value); }
+        }
     }
 }

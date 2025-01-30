@@ -1,5 +1,7 @@
-﻿using StudentsHelper.Interfaces;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
+using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -21,6 +23,10 @@ namespace StudentsHelper.ViewModels
         public NotesViewModel()
         {
             Task.Run(LoadNotes);
+            WeakReferenceMessenger.Default.Register<UpdateNotesMessage>(this, async (r, m) =>
+            {
+                await LoadNotes();
+            });
 
             RemoveCommand = new Command(
                 async (item) =>
@@ -35,14 +41,17 @@ namespace StudentsHelper.ViewModels
             );
 
             SortCommand = new Command(
-                (option) =>
+                async (option) =>
                 {
                     if (option is NoteSortOption op)
                     {
+                        IsBusy = true;
+                        await Task.Delay(100);
+
                         switch (op)
                         {
                             case NoteSortOption.ByTitle:
-                                Notes = IsSortedByTitleAsc 
+                                Notes = IsSortedByTitleAsc
                                     ? new ObservableCollection<NoteItem>(Notes.OrderByDescending(n => n.Title))
                                     : new ObservableCollection<NoteItem>(Notes.OrderBy(n => n.Title));
                                 IsSortedByTitleAsc = !IsSortedByTitleAsc;
@@ -54,6 +63,7 @@ namespace StudentsHelper.ViewModels
                                 IsSortedByDateAsc = !IsSortedByDateAsc;
                                 break;
                         }
+                        IsBusy = false;
                     }
                 }
             );
@@ -89,6 +99,7 @@ namespace StudentsHelper.ViewModels
         #region methods
         private async Task LoadNotes()
         {
+            IsBusy = true;
             var notes = await notesManager.GetNoteItemsAsync();
             notes = [.. notes.OrderByDescending(n => n.Date)];
             Notes.Clear();
@@ -97,6 +108,7 @@ namespace StudentsHelper.ViewModels
                 Notes.Add(note);
             }
             NotesCountChanged?.Invoke(Notes.Count);
+            IsBusy = false;
         }
         #endregion
     }

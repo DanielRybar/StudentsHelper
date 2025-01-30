@@ -1,7 +1,7 @@
 ﻿using StudentsHelper.Constants;
 using StudentsHelper.Helpers;
 using StudentsHelper.Interfaces;
-using StudentsHelper.Views;
+using StudentsHelper.Views.NotesOperationsPages;
 
 namespace StudentsHelper.Navigation
 {
@@ -14,6 +14,12 @@ namespace StudentsHelper.Navigation
         public AppShell()
         {
             InitializeComponent();
+            RegisterOtherRoutes();
+        }
+
+        private void RegisterOtherRoutes()
+        {
+            Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
         }
 
         protected override void OnAppearing()

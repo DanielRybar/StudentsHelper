@@ -39,4 +39,18 @@
         Color="{StaticResource White}"
         Glyph="&#xf0dc;" />
 
+    <FontImageSource
+        x:Key="AddIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#x002b;" />
+
+    <FontImageSource
+        x:Key="SaveIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf0c7;" />
+
 </ResourceDictionary>
