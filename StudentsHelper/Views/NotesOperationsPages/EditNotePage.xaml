@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StudentsHelper.Views.NotesOperationsPages.AddNotePage"
-             Title="Vytvořit novou poznámku">
+             x:Class="StudentsHelper.Views.NotesOperationsPages.EditNotePage"
+             Title="Upravit poznámku">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding AddNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
+        <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
@@ -24,5 +24,4 @@
             <Label Text="{StaticResource SavingData}" />
         </VerticalStackLayout>
     </Grid>
-
 </ContentPage>

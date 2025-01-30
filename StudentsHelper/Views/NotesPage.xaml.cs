@@ -1,4 +1,6 @@
+using CommunityToolkit.Mvvm.Messaging;
 using StudentsHelper.Models;
+using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels;
 using StudentsHelper.Views.NotesOperationsPages;
 
@@ -21,6 +23,7 @@ public partial class NotesPage : ContentPage
         MainScrollView.ScrollToAsync(0, scrollY, false);
         MainThread.BeginInvokeOnMainThread(() =>
         {
+            CheckEmptyView(count);
             this.ToolbarItems.Clear();
             if (count > 0)
             {
@@ -64,11 +67,25 @@ public partial class NotesPage : ContentPage
         });
     }
 
+    private void CheckEmptyView(int count)
+    {
+        if (count == 0)
+        {
+            MainCollectionView.IsVisible = false;
+            EmptyLayout.IsVisible = true;
+        }
+        else
+        {
+            MainCollectionView.IsVisible = true;
+            EmptyLayout.IsVisible = false;
+        }
+    } 
+
     private async void LongPress_RemoveItem(object sender, CommunityToolkit.Maui.Core.LongPressCompletedEventArgs e)
     {
         if (sender is Grid grid && grid.BindingContext is NoteItem note)
         {
-            Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(100));
+            HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             isLongPress = true;
             scrollY = MainScrollView.ScrollY;
             if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit tuto položku?", "Ano", "Ne"))
@@ -81,9 +98,16 @@ public partial class NotesPage : ContentPage
     {
         if (sender is Grid grid && !isLongPress)
         {
-            await Task.Delay(100);
-            await grid.ScaleTo(0.8, 100);
-            await grid.ScaleTo(1, 100);
+            await AnimateTile(grid);
+            await Shell.Current.GoToAsync(nameof(EditNotePage));
+            WeakReferenceMessenger.Default.Send(new EditingNoteMessage((grid.BindingContext as NoteItem)!));
         }
+    }
+
+    private static async Task AnimateTile(Grid grid)
+    {
+        await Task.Delay(100);
+        await grid.ScaleTo(0.8, 100);
+        await grid.ScaleTo(1, 100);
     }
 }

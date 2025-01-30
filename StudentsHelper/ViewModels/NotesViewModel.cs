@@ -12,7 +12,6 @@ namespace StudentsHelper.ViewModels
     {
         #region variables
         private ObservableCollection<NoteItem> notes = [];
-        private NoteItem selectedNote;
         #endregion
 
         #region services
@@ -87,12 +86,6 @@ namespace StudentsHelper.ViewModels
         {
             get => notes;
             set => SetProperty(ref notes, value);
-        }
-
-        public NoteItem SelectedNote
-        {
-            get => selectedNote;
-            set => SetProperty(ref selectedNote, value);
         }
         #endregion
 

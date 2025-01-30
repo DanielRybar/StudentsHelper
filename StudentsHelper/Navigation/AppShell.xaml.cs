@@ -20,6 +20,7 @@ namespace StudentsHelper.Navigation
         private void RegisterOtherRoutes()
         {
             Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
+            Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
         }
 
         protected override void OnAppearing()

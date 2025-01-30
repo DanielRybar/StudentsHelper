@@ -478,13 +478,13 @@
 
     <Style TargetType="Entry" x:Key="NoteName">
         <Setter Property="Placeholder" Value="Název poznámky" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="MaxLength" Value="50" />
     </Style>
 
     <Style TargetType="Editor" x:Key="NoteContent">
         <Setter Property="Placeholder" Value="Text" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Margin" Value="0,10,0,0" />
         <Setter Property="AutoSize" Value="TextChanges" />
     </Style>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Platform;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Services;
 
@@ -23,6 +24,20 @@ namespace StudentsHelper
 
             DependencyService.Register<ILocalStorage, LocalStorage>();
             DependencyService.Register<INotesManager, NotesManager>();
+
+            // mappers
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+                handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(nameof(Editor), (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+                handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
 
 #if DEBUG
             builder.Logging.AddDebug();

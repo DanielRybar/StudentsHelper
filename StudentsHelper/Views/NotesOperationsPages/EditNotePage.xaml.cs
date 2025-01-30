@@ -1,17 +1,16 @@
+using CommunityToolkit.Maui.Alerts;
 using Microsoft.Maui.Platform;
 using StudentsHelper.ViewModels.NotesOperationsViewModels;
-using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
 namespace StudentsHelper.Views.NotesOperationsPages;
 
-public partial class AddNotePage : ContentPage
+public partial class EditNotePage : ContentPage
 {
-    private readonly AddNoteViewModel viewModel;
-
-    public AddNotePage()
+    private readonly EditNoteViewModel viewModel;
+    public EditNotePage()
     {
         InitializeComponent();
-        BindingContext = viewModel = new AddNoteViewModel();
+        BindingContext = viewModel = new EditNoteViewModel();
     }
 
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
