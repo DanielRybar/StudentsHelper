@@ -15,7 +15,7 @@
             </Grid.RowDefinitions>
             <Entry Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
             <Border Grid.Row="1" />
-            <ScrollView Grid.Row="2">
+            <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Never">
                 <Editor Text="{Binding Content}" Style="{StaticResource NoteContent}" />
             </ScrollView>
         </Grid>

@@ -38,6 +38,12 @@ namespace StudentsHelper
                 handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping(nameof(Picker), (handler, view) =>
+            {
+                handler.PlatformView.Background = null;
+                handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
+            });
 
 #if DEBUG
             builder.Logging.AddDebug();

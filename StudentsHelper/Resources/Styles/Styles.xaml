@@ -489,4 +489,9 @@
         <Setter Property="AutoSize" Value="TextChanges" />
     </Style>
 
+    <Style TargetType="Border" x:Key="SettingsBorder">
+        <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" />
+        <Setter Property="StrokeThickness" Value="1" />
+    </Style>
+
 </ResourceDictionary>
