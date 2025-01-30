@@ -29,6 +29,7 @@ namespace StudentsHelper.ViewModels.NotesOperationsViewModels
                         Title = string.IsNullOrEmpty(Title) ? "Nová poznámka" : Title,
                         Content = Content
                     };
+                    IsBusy = true;
                     await notesManager.StoreNoteItemAsync(item);
                     await Shell.Current.GoToAsync("..");
                     WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));

@@ -5,7 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:conv="clr-namespace:StudentsHelper.Converters">
 
+    <!-- converters -->
     <conv:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+
+    <!-- strings -->
+    <x:String x:Key="LoadingData">Načítám data</x:String>
+    <x:String x:Key="SavingData">Ukládám data</x:String>
 
 </ResourceDictionary>

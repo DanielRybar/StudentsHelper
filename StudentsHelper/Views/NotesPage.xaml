@@ -12,7 +12,9 @@
                     <GridItemsLayout Orientation="Vertical" Span="2" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.EmptyView>
-                    <Label Text="Žádné poznámky nejsou k dispozici." Style="{StaticResource CenteredLabel}" />
+                    <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="Žádné poznámky nejsou k dispozici." Style="{StaticResource CenteredLabel}"  />
+                    </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -20,7 +22,7 @@
                             <Grid.Behaviors>
                                 <toolkit:TouchBehavior 
                                     LongPressCompleted="LongPress_RemoveItem" 
-                                    LongPressDuration="120" />
+                                    LongPressDuration="200" />
                             </Grid.Behaviors>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Grid_Tapped" />
@@ -50,7 +52,7 @@
         </ScrollView>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
             <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
-            <Label Text="Načítám data" />
+            <Label Text="{StaticResource LoadingData}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

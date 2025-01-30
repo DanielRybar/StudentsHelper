@@ -6,9 +6,21 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout Margin="10">
-        <Entry Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
-        <Border />
-        <Editor Text="{Binding Content}" Style="{StaticResource NoteContent}" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Entry Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
+            <Border Grid.Row="1" />
+            <Editor Grid.Row="2" Text="{Binding Content}" Style="{StaticResource NoteContent}" />
+        </Grid>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
+            <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
+            <Label Text="{StaticResource SavingData}" />
+        </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>

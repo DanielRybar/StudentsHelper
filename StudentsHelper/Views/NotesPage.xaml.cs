@@ -55,7 +55,7 @@ public partial class NotesPage : ContentPage
             {
                 IconImageSource = App.Current!.Resources["AddIcon"] as FontImageSource,
                 Order = ToolbarItemOrder.Primary,
-                Command = new Command(async () => 
+                Command = new Command(async () =>
                 {
                     await Shell.Current.GoToAsync(nameof(AddNotePage));
                     await this.MainScrollView.ScrollToAsync(0, 0, false);
@@ -68,6 +68,7 @@ public partial class NotesPage : ContentPage
     {
         if (sender is Grid grid && grid.BindingContext is NoteItem note)
         {
+            Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(100));
             isLongPress = true;
             scrollY = MainScrollView.ScrollY;
             if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit tuto položku?", "Ano", "Ne"))
