@@ -14,7 +14,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="15">
+                            <Grid Margin="10">
                                 <Grid.Behaviors>
                                     <toolkit:TouchBehavior 
                                         LongPressCompleted="LongPress_RemoveItem" 
@@ -29,7 +29,7 @@
                                 </Grid.RowDefinitions>
                                 <Border 
                                         BackgroundColor="{AppThemeBinding Light={StaticResource MainHelperColorLight}, Dark={StaticResource Gray600}}" 
-                                        HeightRequest="215" 
+                                        HeightRequest="230" 
                                         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" 
                                         StrokeThickness="0.5">
                                     <Border.StrokeShape>
