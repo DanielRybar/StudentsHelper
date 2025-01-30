@@ -47,11 +47,25 @@ namespace StudentsHelper.ViewModels.NotesOperationsViewModels
                     WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
                 }
             );
+
+            RemoveCommand = new Command(
+                async () =>
+                {
+                    if (noteItem is not null)
+                    {
+                        IsBusy = true;
+                        await notesManager.DeleteNoteItemAsync(noteItem);
+                        await Shell.Current.GoToAsync("..");
+                        WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
+                    }
+                }
+            );
         }
         #endregion
 
         #region commands
         public ICommand EditNoteCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
         #endregion
 
         #region properties

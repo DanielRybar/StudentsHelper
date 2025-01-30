@@ -5,6 +5,7 @@
              Title="Upravit poznámku">
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
+        <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
@@ -21,7 +22,7 @@
         </Grid>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
             <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
-            <Label Text="{StaticResource SavingData}" />
+            <Label Text="{StaticResource SavingData}" x:Name="LoadingText" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

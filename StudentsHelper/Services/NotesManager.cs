@@ -13,41 +13,61 @@ namespace StudentsHelper.Services
             "StudentsHelper-Notes.sqlite");
         private readonly SQLiteOpenFlags flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
 
-        private async Task Init()
+        private async Task<bool> Init()
         {
-            if (database is not null) return;
-            database = new SQLiteAsyncConnection(dbPath, flags);
-            await database.CreateTableAsync<NoteItem>();
+            if (database is not null) return true;
+            try
+            {
+                database = new SQLiteAsyncConnection(dbPath, flags);
+                await database.CreateTableAsync<NoteItem>();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public async Task<List<NoteItem>> GetNoteItemsAsync()
         {
-            await Init();
-            return await database.Table<NoteItem>().ToListAsync();
+            if (await Init())
+            {
+                return await database.Table<NoteItem>().ToListAsync();
+            }
+            return [];
         }
 
         public async Task<NoteItem> GetNoteItemAsync(int id)
         {
-            await Init();
-            return await database.Table<NoteItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            if (await Init())
+            {
+                return await database.Table<NoteItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            }
+            return new();
         }
 
         public async Task<int> DeleteNoteItemAsync(NoteItem noteItem)
         {
-            await Init();
-            return await database.DeleteAsync(noteItem);
+            if (await Init())
+            {
+                return await database.DeleteAsync(noteItem);
+            }
+            return -1;
         }
 
         public async Task<int> StoreNoteItemAsync(NoteItem noteItem)
         {
-            await Init();
-            if (noteItem.Id != 0)
+            if (await Init())
             {
-                return await database.UpdateAsync(noteItem);
+                if (noteItem.Id != 0)
+                {
+                    return await database.UpdateAsync(noteItem);
+                }
+                else
+                {
+                    return await database.InsertAsync(noteItem);
+                }
             }
-            else
-            {
-                return await database.InsertAsync(noteItem);
-            }
+            return -1;
         }
     }
 }

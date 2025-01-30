@@ -12,14 +12,14 @@
         <VerticalStackLayout Style="{StaticResource SettingsLayout}">
             <Label Text="Režim aplikace" />
             <VerticalStackLayout>
-                <Picker ItemsSource="{Binding ThemesList}" SelectedItem="{Binding SelectedTheme}" />
+                <Picker ItemsSource="{Binding ThemesList}" SelectedItem="{Binding SelectedTheme}" Title="Vyberte téma" />
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" Style="{StaticResource SettingsLayout}">
             <Label Text="Výchozí záložka" />
             <VerticalStackLayout>
-                <Picker ItemsSource="{Binding ModulesList}" SelectedItem="{Binding SelectedModule}" />
+                <Picker ItemsSource="{Binding ModulesList}" SelectedItem="{Binding SelectedModule}" Title="Vyberte výchozí modul" />
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>

@@ -12,6 +12,7 @@ namespace StudentsHelper.ViewModels.NotesOperationsViewModels
         #region variables
         private string title = string.Empty;
         private string content = string.Empty;
+        private readonly string defaultTitle = "Nová poznámka";
         #endregion
 
         #region services
@@ -26,7 +27,7 @@ namespace StudentsHelper.ViewModels.NotesOperationsViewModels
                 {
                     var item = new NoteItem
                     {
-                        Title = string.IsNullOrEmpty(Title) ? "Nová poznámka" : Title,
+                        Title = string.IsNullOrEmpty(Title) ? defaultTitle : Title,
                         Content = Content
                     };
                     IsBusy = true;

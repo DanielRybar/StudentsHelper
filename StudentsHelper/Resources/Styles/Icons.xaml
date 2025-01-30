@@ -53,4 +53,11 @@
         Color="{StaticResource White}"
         Glyph="&#xf0c7;" />
 
+    <FontImageSource
+        x:Key="DeleteIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf1f8;" />
+
 </ResourceDictionary>
