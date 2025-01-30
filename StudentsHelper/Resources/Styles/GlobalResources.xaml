@@ -9,8 +9,8 @@
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 
     <!-- strings -->
-    <x:String x:Key="LoadingData">Načítám data</x:String>
-    <x:String x:Key="SavingData">Ukládám data</x:String>
+    <x:String x:Key="LoadingData">Načítání dat</x:String>
+    <x:String x:Key="SavingData">Ukládání dat</x:String>
     <x:String x:Key="DeletingData">Mazání dat</x:String>
 
 </ResourceDictionary>

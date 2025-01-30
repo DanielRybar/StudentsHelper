@@ -461,8 +461,6 @@
     </Style>
 
     <Style TargetType="Label" x:Key="CenteredLabel">
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
     </Style>
