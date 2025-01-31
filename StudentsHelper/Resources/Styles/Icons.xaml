@@ -60,4 +60,18 @@
         Color="{StaticResource White}"
         Glyph="&#xf1f8;" />
 
+    <FontImageSource
+        x:Key="CheckIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf00c;" />
+
+    <FontImageSource
+        x:Key="ClockIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf017;" />
+
 </ResourceDictionary>

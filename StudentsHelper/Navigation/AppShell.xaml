@@ -8,10 +8,7 @@
     xmlns:tasks="clr-namespace:StudentsHelper.Views.Tasks"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Shell.FlyoutBehavior="Flyout"
-    Shell.BackgroundColor="{AppThemeBinding Light={StaticResource MainHelperColor}, Dark={StaticResource MainHelperColor}}"
-    Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"
-    Shell.TitleColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"
-    FlyoutBackgroundColor="{AppThemeBinding Light= {StaticResource MenuBackgroundColorLight}, Dark={StaticResource MenuBackgroundColorDark}}">
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource MenuBackgroundColorLight}, Dark={StaticResource MenuBackgroundColorDark}}">
 
     <Shell.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource MainHelperColorDark}" StatusBarStyle="LightContent" />
@@ -24,20 +21,25 @@
         </StackLayout>
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="Poznámky" Icon="{StaticResource NotesIcon}" Route="NotesPage">
-        <ShellContent ContentTemplate="{DataTemplate notes:NotesPage}" />
+    <FlyoutItem Title="Poznámky" Icon="{StaticResource NotesIcon}">
+        <ShellContent ContentTemplate="{DataTemplate notes:NotesPage}" Route="NotesPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Úkoly" Icon="{StaticResource TasksIcon}" Route="TasksPage">
-        <ShellContent ContentTemplate="{DataTemplate tasks:TasksPageMain}" />
+    <FlyoutItem Title="Úkoly" Icon="{StaticResource TasksIcon}">
+        <Tab Title="Aktivní úkoly" Icon="{StaticResource ClockIcon}">
+            <ShellContent ContentTemplate="{DataTemplate tasks:ActiveTasksPage}" Route="ActiveTasksPage" />
+        </Tab>
+        <Tab Title="Dokončené úkoly" Icon="{StaticResource CheckIcon}">
+            <ShellContent ContentTemplate="{DataTemplate tasks:CompletedTasksPage}" Route="CompletedTasksPage" />
+        </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Nastavení" Icon="{StaticResource SettingsIcon}" Route="SettingsPage">
-        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+    <FlyoutItem Title="Nastavení" Icon="{StaticResource SettingsIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="O aplikaci" Icon="{StaticResource InfoIcon}" Route="AboutAppPage">
-        <ShellContent ContentTemplate="{DataTemplate views:AboutAppPage}" />
+    <FlyoutItem Title="O aplikaci" Icon="{StaticResource InfoIcon}">
+        <ShellContent ContentTemplate="{DataTemplate views:AboutAppPage}" Route="AboutAppPage" />
     </FlyoutItem>
 
     <Shell.FlyoutFooter>
