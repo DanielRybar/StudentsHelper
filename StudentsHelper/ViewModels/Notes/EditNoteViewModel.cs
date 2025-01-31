@@ -5,7 +5,7 @@ using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Windows.Input;
 
-namespace StudentsHelper.ViewModels.NotesOperationsViewModels
+namespace StudentsHelper.ViewModels.Notes
 {
     public class EditNoteViewModel : BaseViewModel
     {

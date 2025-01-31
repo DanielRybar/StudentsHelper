@@ -6,7 +6,7 @@ using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace StudentsHelper.ViewModels
+namespace StudentsHelper.ViewModels.Notes
 {
     public class NotesViewModel : BaseViewModel
     {
@@ -21,7 +21,6 @@ namespace StudentsHelper.ViewModels
         #region constructor
         public NotesViewModel()
         {
-            Task.Run(LoadNotes);
             WeakReferenceMessenger.Default.Register<UpdateNotesMessage>(this, async (r, m) =>
             {
                 await LoadNotes();

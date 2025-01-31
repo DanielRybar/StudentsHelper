@@ -1,8 +1,8 @@
 using CommunityToolkit.Maui.Core.Platform;
-using StudentsHelper.ViewModels.NotesOperationsViewModels;
+using StudentsHelper.ViewModels.Notes;
 using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
-namespace StudentsHelper.Views.NotesOperationsPages;
+namespace StudentsHelper.Views.Notes;
 
 public partial class EditNotePage : ContentPage
 {

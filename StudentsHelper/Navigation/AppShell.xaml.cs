@@ -1,7 +1,7 @@
 ﻿using StudentsHelper.Constants;
 using StudentsHelper.Helpers;
 using StudentsHelper.Interfaces;
-using StudentsHelper.Views.NotesOperationsPages;
+using StudentsHelper.Views.Notes;
 
 namespace StudentsHelper.Navigation
 {

@@ -1,21 +1,32 @@
 using CommunityToolkit.Mvvm.Messaging;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
-using StudentsHelper.ViewModels;
-using StudentsHelper.Views.NotesOperationsPages;
+using StudentsHelper.ViewModels.Notes;
 
-namespace StudentsHelper.Views;
+namespace StudentsHelper.Views.Notes;
 
 public partial class NotesPage : ContentPage
 {
     private readonly NotesViewModel viewModel;
     private static double scrollY = 0;
     private static bool isLongPress = false;
+    private static bool isLoaded = false;
+
     public NotesPage()
     {
         InitializeComponent();
         BindingContext = viewModel = new NotesViewModel();
         viewModel.NotesCountChanged += CheckToolbarItems;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (!isLoaded)
+        {
+            WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
+            isLoaded = true;
+        }
     }
 
     private void CheckToolbarItems(int count)
@@ -79,7 +90,7 @@ public partial class NotesPage : ContentPage
             MainCollectionView.IsVisible = true;
             EmptyLayout.IsVisible = false;
         }
-    } 
+    }
 
     private async void LongPress_RemoveItem(object sender, CommunityToolkit.Maui.Core.LongPressCompletedEventArgs e)
     {
