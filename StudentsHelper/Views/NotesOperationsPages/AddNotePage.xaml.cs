@@ -1,4 +1,4 @@
-using Microsoft.Maui.Platform;
+using CommunityToolkit.Maui.Core.Platform;
 using StudentsHelper.ViewModels.NotesOperationsViewModels;
 using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
@@ -23,6 +23,15 @@ public partial class AddNotePage : ContentPage
             {
                 await Toast.Make("Maximální délka názvu je 50 znakù.").Show();
             }
+        }
+    }
+
+    private async void AddNote_Clicked(object sender, EventArgs e)
+    {
+        if (sender is ToolbarItem)
+        {
+            await TitleEntry.HideKeyboardAsync();
+            await ContentEditor.HideKeyboardAsync();
         }
     }
 }

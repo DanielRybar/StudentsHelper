@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Core.Platform;
 using StudentsHelper.ViewModels.NotesOperationsViewModels;
 using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
@@ -28,12 +29,23 @@ public partial class EditNotePage : ContentPage
     {
         if (sender is ToolbarItem)
         {
+            await TitleEntry.HideKeyboardAsync();
+            await ContentEditor.HideKeyboardAsync();
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit tuto položku?", "Ano", "Ne"))
             {
                 this.LoadingText.Text = App.Current!.Resources["DeletingData"] as string;
                 viewModel.RemoveCommand.Execute(null);
             }
+        }
+    }
+
+    private async void EditNote_Clicked(object sender, EventArgs e)
+    {
+        if (sender is ToolbarItem)
+        {
+            await TitleEntry.HideKeyboardAsync();
+            await ContentEditor.HideKeyboardAsync();
         }
     }
 }

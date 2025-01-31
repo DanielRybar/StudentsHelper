@@ -4,7 +4,7 @@
              x:Class="StudentsHelper.Views.NotesOperationsPages.AddNotePage"
              Title="Vytvořit novou poznámku">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding AddNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
+        <ToolbarItem Command="{Binding AddNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="AddNote_Clicked" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
@@ -13,10 +13,10 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Entry Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
+            <Entry Text="{Binding Title}" x:Name="TitleEntry" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
             <Border Grid.Row="1" />
             <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Never">
-                <Editor Text="{Binding Content}" Style="{StaticResource NoteContent}" />
+                <Editor x:Name="ContentEditor" Text="{Binding Content}" Style="{StaticResource NoteContent}" />
             </ScrollView>
         </Grid>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">

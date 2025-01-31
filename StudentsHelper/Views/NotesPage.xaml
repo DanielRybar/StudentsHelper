@@ -39,7 +39,9 @@
                                 </Border>
                                 <VerticalStackLayout Grid.Row="1" Padding="0,5,0,0">
                                     <Label Text="{Binding Title}" Style="{StaticResource CenteredLabel}" FontAttributes="Bold" LineBreakMode="TailTruncation" />
-                                    <Label Text="{Binding Path=Date, StringFormat='{}{0:d. M. yyyy}'}" Style="{StaticResource CenteredLabel}" TextColor="{StaticResource Gray400}" />
+                                    <Label Text="{Binding Date, Converter={StaticResource DateTimeToFormattedStringConverter}}" 
+                                           Style="{StaticResource CenteredLabel}" 
+                                           TextColor="{StaticResource Gray400}" />
                                 </VerticalStackLayout>
                             </Grid>
                         </DataTemplate>

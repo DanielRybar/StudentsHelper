@@ -4,7 +4,7 @@
              x:Class="StudentsHelper.Views.NotesOperationsPages.EditNotePage"
              Title="Upravit poznámku">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" />
+        <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditNote_Clicked" />
         <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
     </ContentPage.ToolbarItems>
     <Grid>
@@ -14,10 +14,10 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Entry Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
+            <Entry x:Name="TitleEntry" Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
             <Border Grid.Row="1" />
             <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Never">
-                <Editor Text="{Binding Content}" Style="{StaticResource NoteContent}" />
+                <Editor x:Name="ContentEditor" Text="{Binding Content}" Style="{StaticResource NoteContent}" />
             </ScrollView>
         </Grid>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
