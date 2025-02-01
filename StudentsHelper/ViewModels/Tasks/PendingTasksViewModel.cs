@@ -4,6 +4,7 @@ using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace StudentsHelper.ViewModels.Tasks
 {
@@ -24,11 +25,37 @@ namespace StudentsHelper.ViewModels.Tasks
             {
                 await LoadTasks();
             });
+
+            SetCompletedCommand = new Command(
+                async (item) =>
+                {
+                    if (item is TaskItem task)
+                    {
+                        await tasksManager.FinishTaskItem(task.Id);
+                        await LoadTasks();
+                        WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+                    }
+                },
+                (item) => item is not null
+            );
+
+            RemoveCommand = new Command(
+                async (item) =>
+                {
+                    if (item is TaskItem task)
+                    {
+                        await tasksManager.DeleteTaskItemAsync(task);
+                        await LoadTasks();
+                    }
+                },
+                (item) => item is not null
+            );
         }
         #endregion
 
         #region commands
-
+        public ICommand SetCompletedCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
         #endregion
 
         #region events

@@ -22,7 +22,7 @@ namespace StudentsHelper.Services
                 await database.CreateTableAsync<TaskItem>();
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
