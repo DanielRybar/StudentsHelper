@@ -6,13 +6,20 @@ namespace StudentsHelper.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is DateTime date)
+            if (value is DateTime date && parameter is bool isDateAndTime)
             {
-                if (date.Year == DateTime.Now.Year)
+                if (isDateAndTime)
                 {
-                    return date.ToString("d. M.", CultureInfo.InvariantCulture);
+                    return date.ToString("d. M. yyyy H:mm", CultureInfo.InvariantCulture);
                 }
-                return date.ToString("d. M. yyyy", CultureInfo.InvariantCulture);
+                else
+                {
+                    if (date.Year == DateTime.Now.Year)
+                    {
+                        return date.ToString("d. M.", CultureInfo.InvariantCulture);
+                    }
+                    return date.ToString("d. M. yyyy", CultureInfo.InvariantCulture);
+                }
             }
             return value;
         }

@@ -39,7 +39,7 @@
                                 </Border>
                                 <VerticalStackLayout Grid.Row="1" Padding="0,5,0,0">
                                     <Label Text="{Binding Title}" Style="{StaticResource CenteredLabel}" FontAttributes="Bold" LineBreakMode="TailTruncation" />
-                                    <Label Text="{Binding Date, Converter={StaticResource DateTimeToFormattedStringConverter}}" 
+                                    <Label Text="{Binding Date, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateOnly}}" 
                                            Style="{StaticResource CenteredLabel}" 
                                            TextColor="{StaticResource Gray400}" />
                                 </VerticalStackLayout>

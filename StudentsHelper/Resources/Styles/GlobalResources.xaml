@@ -8,10 +8,15 @@
     <!-- converters -->
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <conv:DateTimeToFormattedStringConverter x:Key="DateTimeToFormattedStringConverter" />
+    <conv:IListToCountConverter x:Key="IListToCountConverter" />
 
     <!-- strings -->
     <x:String x:Key="LoadingData">Načítání dat</x:String>
     <x:String x:Key="SavingData">Ukládání dat</x:String>
     <x:String x:Key="DeletingData">Mazání dat</x:String>
+    
+    <!-- booleans -->
+    <x:Boolean x:Key="IsDateAndTime">True</x:Boolean>
+    <x:Boolean x:Key="IsDateOnly">False</x:Boolean>
 
 </ResourceDictionary>
