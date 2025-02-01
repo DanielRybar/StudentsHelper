@@ -75,7 +75,7 @@ namespace StudentsHelper.Services
         {
             if (await Init())
             {
-                var item = await GetTaskItemAsync(id);
+                var item = await database.Table<TaskItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
                 if (item is not null)
                 {
                     item.IsCompleted = true;
