@@ -3,10 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Tasks.CompletedTasksPage"
              Title="Dokončené úkoly">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <ScrollView x:Name="MainScrollView" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
+            <Grid>
+                <CollectionView x:Name="MainCollectionView" ItemsSource="{Binding CompletedTasks}" SelectionMode="None" IsVisible="False">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Title}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <VerticalStackLayout IsVisible="False" x:Name="EmptyLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="Žádné dokončené úkoly nejsou k dispozici." Style="{StaticResource CenteredLabel}"  />
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
+            <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
+            <Label Text="{StaticResource LoadingData}" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
