@@ -81,4 +81,18 @@
         Color="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
         Glyph="&#xf03e;" />
 
+    <FontImageSource
+        x:Key="ImageCarouselIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="15"
+        Color="{StaticResource MainHelperColorLight}"
+        Glyph="&#xf03e;" />
+
+    <FontImageSource
+        x:Key="CrossIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="15"
+        Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+        Glyph="&#xf00d;" />
+
 </ResourceDictionary>
