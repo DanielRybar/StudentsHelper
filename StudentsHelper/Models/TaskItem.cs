@@ -63,4 +63,10 @@ namespace StudentsHelper.Models
             set => PhotosString = string.Join("|", value);
         }
     }
+    public enum TaskSortOption
+    {
+        ByTitle,
+        ByDateDue,
+        ByPhotosCount
+    }
 }

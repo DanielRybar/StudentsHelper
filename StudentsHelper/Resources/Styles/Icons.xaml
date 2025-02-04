@@ -77,7 +77,7 @@
     <FontImageSource
         x:Key="ImageIcon"
         FontFamily="FontAwesomeSolid"
-        Size="20"
+        Size="15"
         Color="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
         Glyph="&#xf03e;" />
 

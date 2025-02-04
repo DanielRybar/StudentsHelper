@@ -9,6 +9,7 @@
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <conv:DateTimeToFormattedStringConverter x:Key="DateTimeToFormattedStringConverter" />
     <conv:IListToCountConverter x:Key="IListToCountConverter" />
+    <conv:DateTimeCheckToColorConverter x:Key="DateTimeCheckToColorConverter" ValidColor="{StaticResource Transparent}" InvalidColor="{StaticResource InvalidColor}" />
 
     <!-- strings -->
     <x:String x:Key="LoadingData">Načítání dat</x:String>

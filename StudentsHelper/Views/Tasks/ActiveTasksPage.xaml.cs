@@ -7,7 +7,7 @@ namespace StudentsHelper.Views.Tasks;
 
 public partial class ActiveTasksPage : ContentPage
 {
-    private readonly PendingTasksViewModel viewModel;
+    private readonly ActiveTasksViewModel viewModel;
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
@@ -15,7 +15,7 @@ public partial class ActiveTasksPage : ContentPage
     public ActiveTasksPage()
     {
         InitializeComponent();
-        BindingContext = viewModel = new PendingTasksViewModel();
+        BindingContext = viewModel = new ActiveTasksViewModel();
         viewModel.TasksCountChanged += CheckToolbarItems;
     }
 
@@ -35,6 +35,51 @@ public partial class ActiveTasksPage : ContentPage
         MainThread.BeginInvokeOnMainThread(() =>
         {
             CheckEmptyView(count);
+            this.ToolbarItems.Clear();
+            if (count > 0)
+            {
+                this.ToolbarItems.Add(new ToolbarItem()
+                {
+                    IconImageSource = App.Current!.Resources["SortIcon"] as FontImageSource,
+                    Command = new Command(async () =>
+                    {
+                        string cancel = "Zrušit";
+                        string name = "Dle názvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnì" : "vzestupnì") + ")";
+                        string date = "Dle data splnìní (" + (viewModel.IsSortedByDateDueAsc ? "sestupnì" : "vzestupnì") + ")";
+                        string photosCount = "Dle poètu fotografií (" + (viewModel.IsSortedByPhotosCountAsc ? "sestupnì" : "vzestupnì") + ")";
+                        string action = await DisplayActionSheet(
+                            "Øadit úkoly", cancel, null,
+                            name, date, photosCount);
+
+                        if (action is not null && action != cancel)
+                        {
+                            await this.MainScrollView.ScrollToAsync(0, 0, false);
+                            if (action == name)
+                            {
+                                viewModel.SortCommand.Execute(TaskSortOption.ByTitle);
+                            }
+                            else if (action == date)
+                            {
+                                viewModel.SortCommand.Execute(TaskSortOption.ByDateDue);
+                            }
+                            else if (action == photosCount)
+                            {
+                                viewModel.SortCommand.Execute(TaskSortOption.ByPhotosCount);
+                            }
+                        }
+                    })
+                });
+            }
+            this.ToolbarItems.Add(new ToolbarItem()
+            {
+                IconImageSource = App.Current!.Resources["AddIcon"] as FontImageSource,
+                Order = ToolbarItemOrder.Primary,
+                Command = new Command(async () =>
+                {
+                    await Shell.Current.GoToAsync(nameof(AddTaskPage));
+                    await this.MainScrollView.ScrollToAsync(0, 0, false);
+                })
+            });
         });
     }
 
@@ -79,5 +124,21 @@ public partial class ActiveTasksPage : ContentPage
             }
             isLongPress = false;
         }
+    }
+
+    private async void Grid_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is Grid grid && !isLongPress)
+        {
+            await AnimateTile((grid.Children[0] as Grid)!);
+            // 
+        }
+    }
+
+    private static async Task AnimateTile(Grid grid)
+    {
+        await Task.Delay(100);
+        await grid.ScaleTo(0.8, 100);
+        await grid.ScaleTo(1, 100);
     }
 }

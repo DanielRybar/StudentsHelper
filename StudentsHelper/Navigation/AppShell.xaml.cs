@@ -2,6 +2,7 @@
 using StudentsHelper.Helpers;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Views.Notes;
+using StudentsHelper.Views.Tasks;
 
 namespace StudentsHelper.Navigation
 {
@@ -21,6 +22,7 @@ namespace StudentsHelper.Navigation
         {
             Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
             Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
+            Routing.RegisterRoute(nameof(AddTaskPage), typeof(AddTaskPage));
         }
 
         protected override void OnAppearing()

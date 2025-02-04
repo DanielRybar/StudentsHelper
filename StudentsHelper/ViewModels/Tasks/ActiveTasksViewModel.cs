@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace StudentsHelper.ViewModels.Tasks
 {
-    public class PendingTasksViewModel : BaseViewModel
+    public class ActiveTasksViewModel : BaseViewModel
     {
         #region variables
         private ObservableCollection<TaskItem> pendingTasks = [];
@@ -19,7 +19,7 @@ namespace StudentsHelper.ViewModels.Tasks
         #endregion
 
         #region constructor
-        public PendingTasksViewModel()
+        public ActiveTasksViewModel()
         {
             WeakReferenceMessenger.Default.Register<UpdatePendingTasksMessage>(this, async (r, m) =>
             {
@@ -50,12 +50,47 @@ namespace StudentsHelper.ViewModels.Tasks
                 },
                 (item) => item is not null
             );
+
+            SortCommand = new Command(
+                async (option) =>
+                {
+                    if (option is TaskSortOption op)
+                    {
+                        IsBusy = true;
+                        await Task.Delay(100);
+
+                        switch (op)
+                        {
+                            case TaskSortOption.ByTitle:
+                                PendingTasks = IsSortedByTitleAsc
+                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.Title))
+                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.Title));
+                                IsSortedByTitleAsc = !IsSortedByTitleAsc;
+                                break;
+                            case TaskSortOption.ByDateDue:
+                                PendingTasks = IsSortedByDateDueAsc
+                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.DateDue))
+                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.DateDue));
+                                IsSortedByDateDueAsc = !IsSortedByDateDueAsc;
+                                break;
+                            case TaskSortOption.ByPhotosCount:
+                                PendingTasks = IsSortedByPhotosCountAsc
+                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.Photos.Count))
+                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.Photos.Count));
+                                IsSortedByPhotosCountAsc = !IsSortedByPhotosCountAsc;
+                                break;
+                        }
+                        IsBusy = false;
+                    }
+                }
+            );
         }
         #endregion
 
         #region commands
         public ICommand SetCompletedCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
+        public ICommand SortCommand { get; private set; }
         #endregion
 
         #region events
@@ -63,6 +98,9 @@ namespace StudentsHelper.ViewModels.Tasks
         #endregion
 
         #region properties
+        public bool IsSortedByTitleAsc { get; private set; } = false;
+        public bool IsSortedByDateDueAsc { get; private set; } = true;
+        public bool IsSortedByPhotosCountAsc { get; private set; } = false;
 
         public ObservableCollection<TaskItem> PendingTasks
         {
@@ -76,7 +114,7 @@ namespace StudentsHelper.ViewModels.Tasks
         {
             IsBusy = true;
             var pendingTasks = await tasksManager.GetPendingTasksAsync();
-            pendingTasks = [.. pendingTasks.OrderByDescending(t => t.DateDue)];
+            pendingTasks = [.. pendingTasks.OrderBy(t => t.DateDue)];
             PendingTasks.Clear();
             foreach (var task in pendingTasks)
             {
