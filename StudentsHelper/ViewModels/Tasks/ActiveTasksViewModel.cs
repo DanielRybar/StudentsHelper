@@ -114,7 +114,7 @@ namespace StudentsHelper.ViewModels.Tasks
         {
             IsBusy = true;
             var pendingTasks = await tasksManager.GetPendingTasksAsync();
-            pendingTasks = [.. pendingTasks.OrderBy(t => t.DateDue)];
+            pendingTasks = [.. pendingTasks.OrderBy(t => t.DateDue).ThenByDescending(t => t.DateCreated)];
             PendingTasks.Clear();
             foreach (var task in pendingTasks)
             {

@@ -11,6 +11,7 @@ public partial class NotesPage : ContentPage
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
+    private bool isAddClicked = false;
 
     public NotesPage()
     {
@@ -71,8 +72,13 @@ public partial class NotesPage : ContentPage
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
-                    await Shell.Current.GoToAsync(nameof(AddNotePage));
-                    await this.MainScrollView.ScrollToAsync(0, 0, false);
+                    if (!isAddClicked)
+                    {
+                        isAddClicked = true;
+                        await Shell.Current.GoToAsync(nameof(AddNotePage));
+                        await this.MainScrollView.ScrollToAsync(0, 0, false);
+                        isAddClicked = false;
+                    }
                 })
             });
         });

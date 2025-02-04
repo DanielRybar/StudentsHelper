@@ -1,4 +1,7 @@
-﻿using StudentsHelper.Interfaces;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Interfaces;
+using StudentsHelper.Models;
+using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -12,9 +15,10 @@ namespace StudentsHelper.ViewModels.Tasks
         private string description = string.Empty;
         private DateTime dueDate = DateTime.Now.AddDays(1);
         private TimeSpan selectedTime = new(23, 59, 0);
-        private ObservableCollection<string> photos = new();
+        private ObservableCollection<string> photos = [];
         private string selectedPhoto = string.Empty;
         private string carouselStatus = string.Empty;
+        private bool isPhotoVisible = false;
         #endregion
 
         #region services
@@ -24,6 +28,34 @@ namespace StudentsHelper.ViewModels.Tasks
         #region constructor
         public AddTaskViewModel()
         {
+            AddTaskCommand = new Command(
+                async () =>
+                {
+                    List<string> newPhotos = [];
+                    if (Photos is not null && SelectedPhoto is not null)
+                    {
+                        foreach (var photo in Photos)
+                        {
+                            string originalFileName = Path.GetFileName(photo);
+                            string destinationPath = Path.Combine(FileSystem.AppDataDirectory, originalFileName);
+                            File.Copy(photo, destinationPath, true);
+                            newPhotos.Add(destinationPath);
+                        }
+                    }
+                    var task = new TaskItem
+                    {
+                        Title = string.IsNullOrEmpty(Title) ? "Nový úkol" : Title,
+                        Description = Description,
+                        DateDue = DueDate.Date + SelectedTime,
+                        Photos = newPhotos
+                    };
+                    IsBusy = true;
+                    await tasksManager.StoreTaskItemAsync(task);
+                    await Shell.Current.GoToAsync("..");
+                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
+                }
+            );
+
             AddPhotosCommand = new Command(
                 async (mode) =>
                 {
@@ -44,19 +76,31 @@ namespace StudentsHelper.ViewModels.Tasks
                             || result.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
                             {
                                 string uniqueFileName = $"{Guid.NewGuid()}_{result.FileName}";
-                                string localPath = Path.Combine(FileSystem.AppDataDirectory, uniqueFileName);
+                                string localPath = Path.Combine(FileSystem.CacheDirectory, uniqueFileName);
                                 using var stream = await result.OpenReadAsync();
                                 using var newStream = File.OpenWrite(localPath);
                                 await stream.CopyToAsync(newStream);
                                 Photos.Add(localPath);
                                 SelectedPhoto = localPath;
-                                RecalculateCarouselStatus();
                             }
                         }
                     }
                 }
             );
+
+            RemovePhotoCommand = new Command(
+                () =>
+                {
+                    Photos.Remove(SelectedPhoto);
+                    SelectedPhoto = Photos.LastOrDefault();
+                },
+                () => SelectedPhoto is not null && Photos is not null
+            );
         }
+        #endregion
+
+        #region events
+        public Action PhotoChanged;
         #endregion
 
         #region commands
@@ -98,6 +142,7 @@ namespace StudentsHelper.ViewModels.Tasks
             {
                 SetProperty(ref selectedPhoto, value);
                 RecalculateCarouselStatus();
+                PhotoChanged?.Invoke();
             }
         }
         public string CarouselStatus
@@ -105,12 +150,19 @@ namespace StudentsHelper.ViewModels.Tasks
             get => carouselStatus;
             set => SetProperty(ref carouselStatus, value);
         }
+        public bool IsPhotoVisible
+        {
+            get => isPhotoVisible;
+            set => SetProperty(ref isPhotoVisible, value);
+        }
         #endregion
 
         #region methods
         private void RecalculateCarouselStatus()
         {
-            CarouselStatus = (Photos.IndexOf(SelectedPhoto) + 1) + "/" + Photos.Count;
+            var count = Photos.Count;
+            IsPhotoVisible = count > 0;
+            CarouselStatus = (Photos.IndexOf(SelectedPhoto) + 1) + "/" + count;
         }
         #endregion
     }

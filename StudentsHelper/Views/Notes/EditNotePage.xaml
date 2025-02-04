@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Notes.EditNotePage"
+             HideSoftInputOnTapped="True"
              Title="Upravit poznámku">
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditNote_Clicked" />
@@ -15,7 +16,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Entry x:Name="TitleEntry" Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource NoteName}"/>
-            <Border Grid.Row="1" />
+            <Border Grid.Row="1" Style="{StaticResource CRUDBorder}" />
             <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Never">
                 <Editor x:Name="ContentEditor" Text="{Binding Content}" Style="{StaticResource NoteContent}" />
             </ScrollView>

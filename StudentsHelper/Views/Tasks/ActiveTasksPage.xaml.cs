@@ -11,6 +11,7 @@ public partial class ActiveTasksPage : ContentPage
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
+    private bool isAddClicked = false;
 
     public ActiveTasksPage()
     {
@@ -76,8 +77,13 @@ public partial class ActiveTasksPage : ContentPage
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
-                    await Shell.Current.GoToAsync(nameof(AddTaskPage));
-                    await this.MainScrollView.ScrollToAsync(0, 0, false);
+                    if (!isAddClicked)
+                    {
+                        isAddClicked = true;
+                        await Shell.Current.GoToAsync(nameof(AddTaskPage));
+                        await this.MainScrollView.ScrollToAsync(0, 0, false);
+                        isAddClicked = false;
+                    }
                 })
             });
         });
@@ -131,7 +137,7 @@ public partial class ActiveTasksPage : ContentPage
         if (sender is Grid grid && !isLongPress)
         {
             await AnimateTile((grid.Children[0] as Grid)!);
-            // 
+            // todo
         }
     }
 

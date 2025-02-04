@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui.Core.Platform;
-using StudentsHelper.Models;
 using StudentsHelper.ViewModels.Tasks;
+using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
 namespace StudentsHelper.Views.Tasks;
 
@@ -11,6 +11,23 @@ public partial class AddTaskPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel = new AddTaskViewModel();
+        viewModel.PhotoChanged += async () =>
+        {
+            await Task.Delay(500);
+            await MainScrollView.ScrollToAsync(0, MainScrollView.ContentSize.Height, false);
+        };
+    }
+
+    private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (sender is Entry)
+        {
+            int length = e.NewTextValue.Length;
+            if (length == 50)
+            {
+                await Toast.Make("Maximální délka názvu je 50 znakù.").Show();
+            }
+        }
     }
 
     private async void AddTask_Clicked(object sender, EventArgs e)
