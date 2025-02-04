@@ -13,8 +13,8 @@ public partial class AddTaskPage : ContentPage
         BindingContext = viewModel = new AddTaskViewModel();
         viewModel.PhotoChanged += async () =>
         {
-            await Task.Delay(500);
-            await MainScrollView.ScrollToAsync(0, MainScrollView.ContentSize.Height, false);
+            //await Task.Delay(500);
+            //await MainScrollView.ScrollToAsync(0, MainScrollView.ContentSize.Height, false);
         };
     }
 
