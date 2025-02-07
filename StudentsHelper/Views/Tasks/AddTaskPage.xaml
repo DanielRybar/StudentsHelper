@@ -27,27 +27,27 @@
                 <FlexLayout Grid.Row="4" Style="{StaticResource TaskFlexLayout}">
                     <Label Text="Vyberte datum a čas splnění:"  Style="{StaticResource CenteredLabel}" />
                     <HorizontalStackLayout Spacing="5">
-                        <DatePicker Format="d. M. yyyy" Date="{Binding DueDate}" MinimumDate="{x:Static sys:DateTime.Now}" FontSize="16" />
-                        <TimePicker Format="H:mm" Time="{Binding SelectedTime}" FontSize="16" />
+                        <DatePicker Format="d. M. yyyy" Date="{Binding DueDate}" MinimumDate="{x:Static sys:DateTime.Now}" FontSize="16" DateSelected="DatePicker_DateSelected" />
+                        <TimePicker Format="H:mm" Time="{Binding SelectedTime}" FontSize="16" TimeSelected="TimePicker_TimeSelected" />
                     </HorizontalStackLayout>
                 </FlexLayout>
                 <Button Grid.Row="5" Text="Připojit fotky" Clicked="AddPhotos_Clicked" Style="{StaticResource AddPhotoButton}" />
-                <Grid Grid.Row="6" Margin="10" IsVisible="{Binding IsPhotoVisible}">
-                    <CarouselView x:Name="CarouselView" ItemsSource="{Binding Photos}" CurrentItem="{Binding SelectedPhoto}" Style="{StaticResource TaskCarousel}">
-                        <CarouselView.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" />
-                            </DataTemplate>
-                        </CarouselView.ItemTemplate>
-                    </CarouselView>
-                    <Border Style="{StaticResource TaskBorder}">
-                        <HorizontalStackLayout Margin="5" Padding="5" Spacing="5">
-                            <Image Source="{StaticResource ImageCarouselIcon}" />
-                            <Label Text="{Binding CarouselStatus}" TextColor="{StaticResource MainHelperColorLight}" />
-                        </HorizontalStackLayout>
-                    </Border>
-                    <Button Command="{Binding RemovePhotoCommand}" Style="{StaticResource RemovePhotoButton}" ImageSource="{StaticResource CrossIcon}" />
-                </Grid>
+                <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None"  Grid.Row="6" Margin="10,20,10,10">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource TaskGalleryBorder}">
+                                <Grid>
+                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="Center" />
+                                    <Button Clicked="RemovePhoto_Clicked" CommandParameter="{Binding}" Style="{StaticResource RemovePhotoButton}" />
+                                    <Image Source="{StaticResource CrossIcon}" Style="{StaticResource RemoveButtonIcon}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </ScrollView>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">

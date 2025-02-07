@@ -8,8 +8,8 @@
     <!-- converters -->
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <conv:DateTimeToFormattedStringConverter x:Key="DateTimeToFormattedStringConverter" />
-    <conv:IListToCountConverter x:Key="IListToCountConverter" />
-    <conv:DateTimeCheckToColorConverter x:Key="DateTimeCheckToColorConverter" ValidColor="{StaticResource Transparent}" InvalidColor="{StaticResource InvalidColor}" />
+    <conv:CollectionToCountConverter x:Key="CollectionToCountConverter" />
+    <conv:DateTimeCheckToColorConverter x:Key="DateTimeCheckToColorConverter" ValidColor="{StaticResource Transparent}" InvalidColor="{StaticResource MainHelperColorLight}" />
     <conv:FilePathToImageSourceConverter x:Key="FilePathToImageSourceConverter" />
 
     <!-- strings -->

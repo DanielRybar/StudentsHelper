@@ -82,7 +82,7 @@
         Glyph="&#xf03e;" />
 
     <FontImageSource
-        x:Key="ImageCarouselIcon"
+        x:Key="ImageStatusIcon"
         FontFamily="FontAwesomeSolid"
         Size="15"
         Color="{StaticResource MainHelperColorLight}"

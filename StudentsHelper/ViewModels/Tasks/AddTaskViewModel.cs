@@ -16,9 +16,6 @@ namespace StudentsHelper.ViewModels.Tasks
         private DateTime dueDate = DateTime.Now.AddDays(1);
         private TimeSpan selectedTime = new(23, 59, 0);
         private ObservableCollection<string> photos = [];
-        private string selectedPhoto = string.Empty;
-        private string carouselStatus = string.Empty;
-        private bool isPhotoVisible = false;
         #endregion
 
         #region services
@@ -32,7 +29,7 @@ namespace StudentsHelper.ViewModels.Tasks
                 async () =>
                 {
                     List<string> newPhotos = [];
-                    if (Photos is not null && SelectedPhoto is not null)
+                    if (Photos is not null)
                     {
                         foreach (var photo in Photos)
                         {
@@ -81,7 +78,6 @@ namespace StudentsHelper.ViewModels.Tasks
                                 using var newStream = File.OpenWrite(localPath);
                                 await stream.CopyToAsync(newStream);
                                 Photos.Add(localPath);
-                                SelectedPhoto = localPath;
                             }
                         }
                     }
@@ -89,18 +85,16 @@ namespace StudentsHelper.ViewModels.Tasks
             );
 
             RemovePhotoCommand = new Command(
-                () =>
+                (photo) =>
                 {
-                    Photos.Remove(SelectedPhoto);
-                    SelectedPhoto = Photos.LastOrDefault();
+                    if (photo is string photoPath)
+                    {
+                        Photos.Remove(photoPath);
+                    }
                 },
-                () => SelectedPhoto is not null && Photos is not null
+                (photo) => photo is not null && Photos is not null
             );
         }
-        #endregion
-
-        #region events
-        public Action PhotoChanged;
         #endregion
 
         #region commands
@@ -134,35 +128,6 @@ namespace StudentsHelper.ViewModels.Tasks
         {
             get => photos;
             set => SetProperty(ref photos, value);
-        }
-        public string SelectedPhoto
-        {
-            get => selectedPhoto;
-            set
-            {
-                SetProperty(ref selectedPhoto, value);
-                RecalculateCarouselStatus();
-                PhotoChanged?.Invoke();
-            }
-        }
-        public string CarouselStatus
-        {
-            get => carouselStatus;
-            set => SetProperty(ref carouselStatus, value);
-        }
-        public bool IsPhotoVisible
-        {
-            get => isPhotoVisible;
-            set => SetProperty(ref isPhotoVisible, value);
-        }
-        #endregion
-
-        #region methods
-        private void RecalculateCarouselStatus()
-        {
-            var count = Photos.Count;
-            IsPhotoVisible = count > 0;
-            CarouselStatus = (Photos.IndexOf(SelectedPhoto) + 1) + "/" + count;
         }
         #endregion
     }

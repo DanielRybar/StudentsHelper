@@ -511,8 +511,8 @@
     </Style>
 
     <Style TargetType="BoxView" x:Key="CollectionBoxView">
-        <Setter Property="HeightRequest" Value="0.3" />
-        <Setter Property="Color" Value="{StaticResource MainHelperColor}" />
+        <Setter Property="HeightRequest" Value="0.5" />
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
     </Style>
 
     <Style TargetType="Entry" x:Key="TaskName" BasedOn="{StaticResource NoteName}">
@@ -537,6 +537,29 @@
         <Setter Property="TextColor" Value="{StaticResource White}" />
     </Style>
 
+    <Style TargetType="Border" x:Key="TaskGalleryBorder">
+        <Setter Property="MaximumHeightRequest" Value="150" />
+        <Setter Property="MaximumWidthRequest" Value="150" />
+        <Setter Property="Stroke" Value="{StaticResource MainHelperColorLight}" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="RemovePhotoButton">
+        <Setter Property="MaximumHeightRequest" Value="20" />
+        <Setter Property="MaximumWidthRequest" Value="20" />
+        <Setter Property="VerticalOptions" Value="StartAndExpand" />
+        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+        <Setter Property="BackgroundColor" Value="{StaticResource MainHelperColorLight}" />
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+
+    <Style TargetType="Image" x:Key="RemoveButtonIcon">
+        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+        <Setter Property="VerticalOptions" Value="StartAndExpand" />
+        <Setter Property="HeightRequest" Value="15" />
+        <Setter Property="WidthRequest" Value="15" />
+        <Setter Property="Margin" Value="0,2.5,2.5,0" />
+    </Style>
+
     <Style TargetType="CarouselView" x:Key="TaskCarousel">
         <Setter Property="IsSwipeEnabled" Value="True" />
         <Setter Property="Loop" Value="False" />
@@ -552,13 +575,6 @@
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,20" />
         <Setter Property="Margin" Value="10" />
-    </Style>
-
-    <Style TargetType="Button" x:Key="RemovePhotoButton">
-        <Setter Property="VerticalOptions" Value="StartAndExpand" />
-        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
-        <Setter Property="BackgroundColor" Value="{StaticResource MainHelperColorLight}" />
-        <Setter Property="CornerRadius" Value="0" />
     </Style>
 
 </ResourceDictionary>

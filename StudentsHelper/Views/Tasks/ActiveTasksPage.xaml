@@ -37,7 +37,7 @@
                                     </VerticalStackLayout>
                                     <VerticalStackLayout Grid.Column="1" Style="{StaticResource TaskPhotoIcon}">
                                         <Image Source="{StaticResource ImageIcon}" />
-                                        <Label Text="{Binding Photos, Converter={StaticResource IListToCountConverter}}" Style="{StaticResource CenteredLabel}" FontSize="14" />
+                                        <Label Text="{Binding Photos, Converter={StaticResource CollectionToCountConverter}}" Style="{StaticResource CenteredLabel}" FontSize="14" />
                                     </VerticalStackLayout>
                                 </Grid>
                                 <BoxView Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource CollectionBoxView}" />

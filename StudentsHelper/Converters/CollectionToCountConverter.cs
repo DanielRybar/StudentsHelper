@@ -3,13 +3,13 @@ using System.Globalization;
 
 namespace StudentsHelper.Converters
 {
-    public class IListToCountConverter : IValueConverter
+    public class CollectionToCountConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is IList list)
+            if (value is IEnumerable collection)
             {
-                return list.Count;
+                return collection.Cast<object>().Count();
             }
             return value;
         }

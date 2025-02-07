@@ -11,11 +11,6 @@ public partial class AddTaskPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel = new AddTaskViewModel();
-        viewModel.PhotoChanged += async () =>
-        {
-            //await Task.Delay(500);
-            //await MainScrollView.ScrollToAsync(0, MainScrollView.ContentSize.Height, false);
-        };
     }
 
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
@@ -61,6 +56,32 @@ public partial class AddTaskPage : ContentPage
                     viewModel.AddPhotosCommand.Execute(false);
                 }
             }
+        }
+    }
+
+    private async void TimePicker_TimeSelected(object sender, TimeChangedEventArgs e)
+    {
+        if (sender is TimePicker && ((viewModel.DueDate + e.NewTime) < DateTime.Now.AddHours(2)))
+        {
+            await Toast.Make("Úkol musí být naplánován minimálnì 2 hodiny dopøedu.").Show();
+            viewModel.SelectedTime = e.OldTime;
+        }
+    }
+
+    private async void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        if (sender is DatePicker && ((e.NewDate + viewModel.SelectedTime) < DateTime.Now.AddHours(2)))
+        {
+            await Toast.Make("Úkol musí být naplánován minimálnì 2 hodiny dopøedu.").Show();
+            viewModel.DueDate = e.OldDate;
+        }
+    }
+
+    private void RemovePhoto_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn)
+        {
+            viewModel.RemovePhotoCommand.Execute(btn.CommandParameter);
         }
     }
 }

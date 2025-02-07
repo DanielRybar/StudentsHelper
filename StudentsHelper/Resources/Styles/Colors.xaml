@@ -12,7 +12,6 @@
     <Color x:Key="MenuBackgroundColorDark">#111</Color>
     <Color x:Key="MenuBackgroundColorLight">#EEE</Color>
     <Color x:Key="Transparent">Transparent</Color>
-    <Color x:Key="InvalidColor">#EE7967</Color>
 
     <!-- MAUI default colors -->
     <Color x:Key="Primary">#3E7B27</Color>
