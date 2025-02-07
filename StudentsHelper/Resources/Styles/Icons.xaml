@@ -92,7 +92,7 @@
         x:Key="CrossIcon"
         FontFamily="FontAwesomeSolid"
         Size="15"
-        Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+        Color="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
         Glyph="&#xf00d;" />
 
 </ResourceDictionary>

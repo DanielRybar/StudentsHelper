@@ -540,7 +540,7 @@
     <Style TargetType="Border" x:Key="TaskGalleryBorder">
         <Setter Property="MaximumHeightRequest" Value="150" />
         <Setter Property="MaximumWidthRequest" Value="150" />
-        <Setter Property="Stroke" Value="{StaticResource MainHelperColorLight}" />
+        <Setter Property="Stroke" Value="{StaticResource Gray400}" />
     </Style>
 
     <Style TargetType="Button" x:Key="RemovePhotoButton">
