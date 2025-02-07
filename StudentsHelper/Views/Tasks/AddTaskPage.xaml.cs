@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Core.Platform;
+using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Tasks;
 using Toast = CommunityToolkit.Maui.Alerts.Toast;
 
@@ -38,6 +40,11 @@ public partial class AddTaskPage : ContentPage
     {
         if (sender is Button)
         {
+            if (viewModel.Photos.Count == 10)
+            {
+                await Toast.Make("Maximální poèet fotografií je 10.").Show();
+                return;
+            }
             string cancel = "Zrušit";
             string camera = "Fotoaparát";
             string gallery = "Galerie";
@@ -82,6 +89,17 @@ public partial class AddTaskPage : ContentPage
         if (sender is Button btn)
         {
             viewModel.RemovePhotoCommand.Execute(btn.CommandParameter);
+        }
+    }
+
+    private async void Image_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is Image image)
+        {
+            await Shell.Current.GoToAsync(nameof(ImageCarouselPage));
+            WeakReferenceMessenger.Default.Send(
+                new ImageDetailMessage(
+                    new Models.MessageModels.PhotoModel([.. viewModel.Photos], (image.BindingContext as string)!)));
         }
     }
 }

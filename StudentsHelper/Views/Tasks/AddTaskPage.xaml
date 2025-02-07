@@ -40,7 +40,11 @@
                         <DataTemplate>
                             <Border Style="{StaticResource TaskGalleryBorder}">
                                 <Grid>
-                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="Center" />
+                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="Center">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Image_Tapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                     <Button Clicked="RemovePhoto_Clicked" CommandParameter="{Binding}" Style="{StaticResource RemovePhotoButton}" />
                                     <Image Source="{StaticResource CrossIcon}" Style="{StaticResource RemoveButtonIcon}" />
                                 </Grid>

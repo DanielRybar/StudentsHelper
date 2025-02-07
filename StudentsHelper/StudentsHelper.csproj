@@ -86,6 +86,9 @@
 	  <MauiXaml Update="Views\Tasks\CompletedTasksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Tasks\ImageCarouselPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

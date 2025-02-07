@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentsHelper.Views.Tasks.ImageCarouselPage"
+             Title="Detail obrázku">
+
+    <Grid x:Name="CarouselLayout" IsVisible="False">
+        <CarouselView ItemsSource="{Binding Photos}" CurrentItem="{Binding SelectedPhoto}" Style="{StaticResource TaskCarousel}">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" />
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <Border Style="{StaticResource TaskBorder}">
+            <HorizontalStackLayout Margin="5" Padding="5" Spacing="5">
+                <Image Source="{StaticResource ImageStatusIcon}" />
+                <Label Text="{Binding CarouselStatus}" TextColor="{StaticResource MainHelperColorLight}" />
+            </HorizontalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

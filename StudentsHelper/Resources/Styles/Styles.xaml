@@ -562,6 +562,7 @@
 
     <Style TargetType="CarouselView" x:Key="TaskCarousel">
         <Setter Property="IsSwipeEnabled" Value="True" />
+        <Setter Property="IsScrollAnimated" Value="False" />
         <Setter Property="Loop" Value="False" />
         <Setter Property="VerticalScrollBarVisibility" Value="Never" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
@@ -570,8 +571,8 @@
 
     <Style TargetType="Border" x:Key="TaskBorder">
         <Setter Property="VerticalOptions" Value="StartAndExpand" />
-        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource MenuBackgroundColorLight}, Dark={StaticResource Black}}" />
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,20" />
         <Setter Property="Margin" Value="10" />

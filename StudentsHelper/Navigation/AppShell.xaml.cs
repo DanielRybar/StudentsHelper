@@ -23,6 +23,7 @@ namespace StudentsHelper.Navigation
             Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
             Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
             Routing.RegisterRoute(nameof(AddTaskPage), typeof(AddTaskPage));
+            Routing.RegisterRoute(nameof(ImageCarouselPage), typeof(ImageCarouselPage));
         }
 
         protected override void OnAppearing()
