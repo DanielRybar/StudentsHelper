@@ -11,6 +11,8 @@
     <conv:CollectionToCountConverter x:Key="CollectionToCountConverter" />
     <conv:DateTimeCheckToColorConverter x:Key="DateTimeCheckToColorConverter" ValidColor="{StaticResource Transparent}" InvalidColor="{StaticResource MainHelperColorLight}" />
     <conv:FilePathToImageSourceConverter x:Key="FilePathToImageSourceConverter" />
+    <conv:TaskStatusToIconConverter x:Key="TaskStatusToIconConverter" CompletedIcon="{StaticResource CompletedIcon}" PendingIcon="{StaticResource CrossIcon}" />
+    <conv:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
 
     <!-- strings -->
     <x:String x:Key="LoadingData">Načítání dat</x:String>
@@ -20,5 +22,7 @@
     <!-- booleans -->
     <x:Boolean x:Key="IsDateAndTime">True</x:Boolean>
     <x:Boolean x:Key="IsDateOnly">False</x:Boolean>
+    <x:Boolean x:Key="MakeNeg">True</x:Boolean>
+    <x:Boolean x:Key="DontMakeNeg">False</x:Boolean>
 
 </ResourceDictionary>

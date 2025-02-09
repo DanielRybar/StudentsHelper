@@ -11,7 +11,7 @@ public partial class NotesPage : ContentPage
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
-    private bool isAddClicked = false;
+    private bool isItemClicked = false;
 
     public NotesPage()
     {
@@ -72,12 +72,12 @@ public partial class NotesPage : ContentPage
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
-                    if (!isAddClicked)
+                    if (!isItemClicked)
                     {
-                        isAddClicked = true;
+                        isItemClicked = true;
                         await Shell.Current.GoToAsync(nameof(AddNotePage));
                         await this.MainScrollView.ScrollToAsync(0, 0, false);
-                        isAddClicked = false;
+                        isItemClicked = false;
                     }
                 })
             });
@@ -113,11 +113,13 @@ public partial class NotesPage : ContentPage
 
     private async void Grid_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is Grid grid && !isLongPress)
+        if (sender is Grid grid && !isLongPress && !isItemClicked)
         {
+            isItemClicked = true;
             await AnimateTile(grid);
             await Shell.Current.GoToAsync(nameof(EditNotePage));
             WeakReferenceMessenger.Default.Send(new EditingNoteMessage((grid.BindingContext as NoteItem)!));
+            isItemClicked = false;
         }
     }
 

@@ -18,7 +18,7 @@
                                 <Grid.Behaviors>
                                     <toolkit:TouchBehavior 
                                         LongPressCompleted="LongPress_RemoveItem" 
-                                        LongPressDuration="200" />
+                                        LongPressDuration="350" />
                                 </Grid.Behaviors>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Grid_Tapped" />

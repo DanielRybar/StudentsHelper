@@ -25,7 +25,7 @@
                 <Editor x:Name="ContentEditor" Text="{Binding Description}" Grid.Row="2" Style="{StaticResource TaskDescription}" />
                 <Border Grid.Row="3" Style="{StaticResource CRUDBorder}" />
                 <FlexLayout Grid.Row="4" Style="{StaticResource TaskFlexLayout}">
-                    <Label Text="Vyberte datum a čas splnění:"  Style="{StaticResource CenteredLabel}" />
+                    <Label Text="Vyberte datum a čas splnění:" Style="{StaticResource HeaderActionLabel}" />
                     <HorizontalStackLayout Spacing="5">
                         <DatePicker Format="d. M. yyyy" Date="{Binding DueDate}" MinimumDate="{x:Static sys:DateTime.Now}" FontSize="16" DateSelected="DatePicker_DateSelected" />
                         <TimePicker Format="H:mm" Time="{Binding SelectedTime}" FontSize="16" TimeSelected="TimePicker_TimeSelected" />
@@ -40,7 +40,7 @@
                         <DataTemplate>
                             <Border Style="{StaticResource TaskGalleryBorder}">
                                 <Grid>
-                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="Center">
+                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="AspectFill">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="Image_Tapped" />
                                         </Image.GestureRecognizers>

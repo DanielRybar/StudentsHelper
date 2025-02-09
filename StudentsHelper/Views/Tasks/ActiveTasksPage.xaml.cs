@@ -11,7 +11,7 @@ public partial class ActiveTasksPage : ContentPage
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
-    private bool isAddClicked = false;
+    private bool isItemClicked = false;
 
     public ActiveTasksPage()
     {
@@ -77,15 +77,19 @@ public partial class ActiveTasksPage : ContentPage
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
-                    if (!isAddClicked)
+                    if (!isItemClicked)
                     {
-                        isAddClicked = true;
+                        isItemClicked = true;
                         await Shell.Current.GoToAsync(nameof(AddTaskPage));
                         await this.MainScrollView.ScrollToAsync(0, 0, false);
-                        isAddClicked = false;
+                        isItemClicked = false;
                     }
                 })
             });
+
+            // hack to prevent incorrect caching strategy
+            this.MainCollectionView.ItemsSource = null;
+            this.MainCollectionView.ItemsSource = viewModel.PendingTasks;
         });
     }
 
@@ -134,10 +138,13 @@ public partial class ActiveTasksPage : ContentPage
 
     private async void Grid_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is Grid grid && !isLongPress)
+        if (sender is Grid grid && !isLongPress && !isItemClicked)
         {
+            isItemClicked = true;
             await AnimateTile((grid.Children[0] as Grid)!);
-            // todo
+            await Shell.Current.GoToAsync(nameof(DetailTaskPage));
+            WeakReferenceMessenger.Default.Send(new DetailTaskMessage((grid.BindingContext as TaskItem)!));
+            isItemClicked = false;
         }
     }
 

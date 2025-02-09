@@ -578,4 +578,24 @@
         <Setter Property="Margin" Value="10" />
     </Style>
 
+    <Style TargetType="Label" x:Key="DetailTaskHeader" BasedOn="{StaticResource CenteredLabel}">
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="Large" />
+    </Style>
+
+    <Style TargetType="FlexLayout" x:Key="DetailFlexLayout" BasedOn="{StaticResource TaskFlexLayout}">
+        <Setter Property="Padding" Value="10,0,10,0" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="HeaderActionLabel" BasedOn="{StaticResource CenteredLabel}">
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="TaskDescriptionDetail">
+        <Setter Property="FontAttributes" Value="Italic" />
+        <Setter Property="Margin" Value="0,-10,0,0" />
+    </Style>
+
 </ResourceDictionary>

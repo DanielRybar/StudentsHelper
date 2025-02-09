@@ -50,6 +50,13 @@ namespace StudentsHelper.Services
         {
             if (await Init())
             {
+                if (item?.Photos is not null)
+                {
+                    foreach (var photo in item.Photos)
+                    {
+                        File.Delete(photo);
+                    }
+                }
                 return await database.DeleteAsync(item);
             }
             return -1;

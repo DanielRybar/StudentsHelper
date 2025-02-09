@@ -61,6 +61,13 @@
         Glyph="&#xf1f8;" />
 
     <FontImageSource
+        x:Key="EditIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="20"
+        Color="{StaticResource White}"
+        Glyph="&#xf303;" />
+
+    <FontImageSource
         x:Key="CheckIcon"
         FontFamily="FontAwesomeSolid"
         Size="20"
@@ -94,5 +101,12 @@
         Size="15"
         Color="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
         Glyph="&#xf00d;" />
+
+    <FontImageSource
+        x:Key="CompletedIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="15"
+        Color="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+        Glyph="&#xf00c;" />
 
 </ResourceDictionary>

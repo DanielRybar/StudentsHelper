@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentsHelper.Views.Tasks.DetailTaskPage"
+             Title="Detaily úkolu">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="EditItem_Clicked" IconImageSource="{StaticResource EditIcon}" />
+        <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid IsVisible="False" x:Name="MainLayout">
+        <ScrollView>
+            <VerticalStackLayout IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" Margin="10" Spacing="20">
+                <Label Text="{Binding Title}" Style="{StaticResource DetailTaskHeader}" />
+                <Border Style="{StaticResource CRUDBorder}" />
+                <FlexLayout Style="{StaticResource DetailFlexLayout}">
+                    <VerticalStackLayout>
+                        <Label Text="Vytvoření:" Style="{StaticResource HeaderActionLabel}" />
+                        <Label Text="{Binding DateCreated, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateAndTime}}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Dokončeno:" Style="{StaticResource HeaderActionLabel}" />
+                        <Image Source="{Binding IsCompleted, Converter={StaticResource TaskStatusToIconConverter}}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Splnění:"  Style="{StaticResource HeaderActionLabel}" />
+                        <Label Text="{Binding DateDue, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateAndTime}}" />
+                    </VerticalStackLayout>
+                </FlexLayout>
+                <Border Style="{StaticResource CRUDBorder}" />
+                <Label Text="Popis:" FontAttributes="Bold" />
+                <Label Text="{Binding Description}" Style="{StaticResource TaskDescriptionDetail}"     
+                       IsVisible="{Binding Description, 
+                                   Converter={StaticResource EmptyStringToVisibilityConverter}, 
+                                   ConverterParameter={StaticResource MakeNeg}}" />
+                <Button 
+                    Clicked="EditItem_Clicked"
+                    Text="Přidat popis" 
+                    Style="{StaticResource AddPhotoButton}" 
+                    IsVisible="{Binding Description, 
+                               Converter={StaticResource EmptyStringToVisibilityConverter}, 
+                               ConverterParameter={StaticResource DontMakeNeg}}" />
+                <Border Style="{StaticResource CRUDBorder}" />
+                <Label Text="Přiložené obrázky:" FontAttributes="Bold" />
+                <Button Clicked="EditItem_Clicked" Text="Přiložit obrázky" Style="{StaticResource AddPhotoButton}" 
+                        IsVisible="{Binding PhotosString, 
+                                   Converter={StaticResource EmptyStringToVisibilityConverter}, 
+                                   ConverterParameter={StaticResource DontMakeNeg}}" />
+                <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource TaskGalleryBorder}">
+                                <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="AspectFill">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Image_Tapped" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
+            <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
+            <Label Text="{StaticResource DeletingData}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
