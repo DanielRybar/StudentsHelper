@@ -38,6 +38,14 @@ namespace StudentsHelper.ViewModels.Tasks
                 (item) => item is not null
             );
 
+            RemoveAllCommand = new Command(
+                async () =>
+                {
+                    await tasksManager.DeleteAllCompletedTaskItemsAsync();
+                    await LoadTasks();
+                }
+            );
+
             SortCommand = new Command(
                 async (option) =>
                 {
@@ -76,6 +84,7 @@ namespace StudentsHelper.ViewModels.Tasks
 
         #region commands
         public ICommand RemoveCommand { get; private set; }
+        public ICommand RemoveAllCommand { get; private set; }
         public ICommand SortCommand { get; private set; }
         #endregion
 

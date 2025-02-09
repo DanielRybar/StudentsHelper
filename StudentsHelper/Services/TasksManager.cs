@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
+using System.Diagnostics;
 
 namespace StudentsHelper.Services
 {
@@ -22,8 +23,10 @@ namespace StudentsHelper.Services
                 await database.CreateTableAsync<TaskItem>();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine("Failed to initialize database");
+                Debug.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -54,10 +57,80 @@ namespace StudentsHelper.Services
                 {
                     foreach (var photo in item.Photos)
                     {
-                        File.Delete(photo);
+                        try
+                        {
+                            File.Delete(photo);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Failed to delete photo: " + photo);
+                            Debug.WriteLine(ex.Message);
+                        }
                     }
                 }
                 return await database.DeleteAsync(item);
+            }
+            return -1;
+        }
+
+        public async Task<int> DeleteAllPendingTaskItemsAsync()
+        {
+            if (await Init())
+            {
+                var items = await database.Table<TaskItem>().Where(i => !i.IsCompleted).ToListAsync();
+                if (items is not null)
+                {
+                    foreach (var item in items)
+                    {
+                        if (item?.Photos is not null)
+                        {
+                            foreach (var photo in item.Photos)
+                            {
+                                try
+                                {
+                                    File.Delete(photo);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("Failed to delete photo: " + photo);
+                                    Debug.WriteLine(ex.Message);
+                                }
+                            }
+                        }
+                    }
+                }
+                return await database.Table<TaskItem>().DeleteAsync(i => !i.IsCompleted);
+            }
+            return -1;
+        }
+
+        public async Task<int> DeleteAllCompletedTaskItemsAsync()
+        {
+            if (await Init())
+            {
+                var items = await database.Table<TaskItem>().Where(i => i.IsCompleted).ToListAsync();
+                if (items is not null)
+                {
+                    foreach (var item in items)
+                    {
+                        if (item?.Photos is not null)
+                        {
+                            foreach (var photo in item.Photos)
+                            {
+                                try
+                                {
+                                    File.Delete(photo);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("Failed to delete photo: " + photo);
+                                    Debug.WriteLine(ex.Message);
+                                }
+                            }
+                        }
+                    }
+                }
+                return await database.Table<TaskItem>().DeleteAsync(i => i.IsCompleted);
             }
             return -1;
         }

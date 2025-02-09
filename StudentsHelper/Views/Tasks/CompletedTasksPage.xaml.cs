@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Tasks;
@@ -8,6 +9,7 @@ namespace StudentsHelper.Views.Tasks;
 public partial class CompletedTasksPage : ContentPage
 {
     private readonly CompletedTasksViewModel viewModel;
+    private readonly IShakeDetector shakeDetector = DependencyService.Get<IShakeDetector>();
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
@@ -27,6 +29,28 @@ public partial class CompletedTasksPage : ContentPage
         {
             WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
             isLoaded = true;
+        }
+        shakeDetector.OnShaken += OnShakeDetected;
+        shakeDetector.Start();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        shakeDetector.OnShaken -= OnShakeDetected;
+        shakeDetector.Stop();
+    }
+
+    private async void OnShakeDetected()
+    {
+        if (viewModel.CompletedTasks.Count > 0)
+        {
+            Vibration.Default.Vibrate();
+            if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit všechny dokonèené úkoly?", "Ano", "Ne"))
+            {
+                viewModel.RemoveAllCommand.Execute(null);
+                scrollY = 0;
+            }
         }
     }
 

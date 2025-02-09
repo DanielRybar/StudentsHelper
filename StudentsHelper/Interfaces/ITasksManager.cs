@@ -8,6 +8,8 @@ namespace StudentsHelper.Interfaces
         Task<TaskItem> GetTaskItemAsync(int id);
         Task<int> StoreTaskItemAsync(TaskItem item);
         Task<int> DeleteTaskItemAsync(TaskItem item);
+        Task<int> DeleteAllPendingTaskItemsAsync();
+        Task<int> DeleteAllCompletedTaskItemsAsync();
         Task<List<TaskItem>> GetFinishedTasksAsync();
         Task<List<TaskItem>> GetPendingTasksAsync();
         Task<int> FinishTaskItem(int id);

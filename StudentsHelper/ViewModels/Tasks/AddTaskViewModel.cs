@@ -4,6 +4,7 @@ using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace StudentsHelper.ViewModels.Tasks
@@ -35,8 +36,18 @@ namespace StudentsHelper.ViewModels.Tasks
                         {
                             string originalFileName = Path.GetFileName(photo);
                             string destinationPath = Path.Combine(FileSystem.AppDataDirectory, originalFileName);
-                            File.Copy(photo, destinationPath, true);
-                            newPhotos.Add(destinationPath);
+                            try
+                            {
+                                File.Copy(photo, destinationPath, true);
+                                newPhotos.Add(destinationPath);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Unable to upload photo with path " + destinationPath);
+                                Debug.WriteLine("Using photo from temporary storage...");
+                                Debug.WriteLine(ex.Message);
+                                newPhotos.Add(photo);
+                            }
                         }
                     }
                     var task = new TaskItem
@@ -75,9 +86,17 @@ namespace StudentsHelper.ViewModels.Tasks
                                 string uniqueFileName = $"{Guid.NewGuid()}_{result.FileName}";
                                 string localPath = Path.Combine(FileSystem.CacheDirectory, uniqueFileName);
                                 using var stream = await result.OpenReadAsync();
-                                using var newStream = File.OpenWrite(localPath);
-                                await stream.CopyToAsync(newStream);
-                                Photos.Add(localPath);
+                                try
+                                {
+                                    using var newStream = File.OpenWrite(localPath);
+                                    await stream.CopyToAsync(newStream);
+                                    Photos.Add(localPath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("Unable to save photo with path " + localPath);
+                                    Debug.WriteLine(ex.Message);
+                                }
                             }
                         }
                     }

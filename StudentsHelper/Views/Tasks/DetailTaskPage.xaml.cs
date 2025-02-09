@@ -15,10 +15,6 @@ public partial class DetailTaskPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel = new DetailTaskViewModel();
-        shakeDetector.OnShaken += () =>
-        {
-            viewModel.RemoveCommand.Execute(null);
-        };
     }
 
     protected override async void OnAppearing()
@@ -26,13 +22,21 @@ public partial class DetailTaskPage : ContentPage
         base.OnAppearing();
         await Task.Delay(800);
         MainLayout.IsVisible = true;
+        shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
+        shakeDetector.OnShaken -= OnShakeDetected;
         shakeDetector.Stop();
+    }
+
+    private void OnShakeDetected()
+    {
+        Vibration.Default.Vibrate();
+        viewModel.RemoveCommand.Execute(null);
     }
 
     private async void Image_Tapped(object sender, TappedEventArgs e)

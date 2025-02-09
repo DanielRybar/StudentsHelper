@@ -45,7 +45,6 @@ namespace StudentsHelper.Services
             {
                 lastShakeTime = DateTime.Now;
                 OnShaken?.Invoke();
-                Vibration.Default.Vibrate();
             }
         }
     }
