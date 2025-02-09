@@ -24,6 +24,7 @@ namespace StudentsHelper.Navigation
             Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
             Routing.RegisterRoute(nameof(AddTaskPage), typeof(AddTaskPage));
             Routing.RegisterRoute(nameof(DetailTaskPage), typeof(DetailTaskPage));
+            Routing.RegisterRoute(nameof(EditTaskPage), typeof(EditTaskPage));
             Routing.RegisterRoute(nameof(ImageCarouselPage), typeof(ImageCarouselPage));
         }
 

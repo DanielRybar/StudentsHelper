@@ -45,11 +45,12 @@ public partial class DetailTaskPage : ContentPage
         }
     }
 
-    private void EditItem_Clicked(object sender, EventArgs e)
+    private async void EditItem_Clicked(object sender, EventArgs e)
     {
         if ((sender is ToolbarItem || sender is Button) && !isItemClicked)
         {
             isItemClicked = true;
+            await Shell.Current.GoToAsync(nameof(EditTaskPage));
             // ...
             isItemClicked = false;
         }

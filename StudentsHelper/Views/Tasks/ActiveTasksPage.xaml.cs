@@ -117,15 +117,21 @@ public partial class ActiveTasksPage : ContentPage
 
             string cancel = "Zrušit";
             string setAsCompleted = "Oznaèit úkol jako dokonèený";
+            string edit = "Upravit úkol";
             string remove = "Smazat úkol";
             string action = await DisplayActionSheet(
                 "Vyberte akci", cancel, null,
-                setAsCompleted, remove);
+                setAsCompleted, edit, remove);
             if (action is not null && action != cancel)
             {
                 if (action == setAsCompleted)
                 {
                     viewModel.SetCompletedCommand.Execute(task);
+                }
+                else if (action == edit)
+                {
+                    await Shell.Current.GoToAsync(nameof(EditTaskPage));
+                    // ...
                 }
                 else if (action == remove)
                 {
