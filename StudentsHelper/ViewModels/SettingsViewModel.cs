@@ -12,6 +12,8 @@ namespace StudentsHelper.ViewModels
         private string selectedTheme;
         private List<string> modulesList = [.. Modules.ModulesDictionary.Keys];
         private string selectedModule;
+        private List<string> choicesList = [.. SimpleChoices.ChoicesDictionary.Keys];
+        private string selectedChoice;
         #endregion
 
         #region services
@@ -41,6 +43,17 @@ namespace StudentsHelper.ViewModels
             {
                 SelectedModule = Modules.ModulesDictionary.FirstOrDefault().Key;
                 localStorage.Save(LocalStorageKeys.DEFAULT_MODULE, SelectedModule);
+            }
+
+            var selectedChoice = localStorage.Load(LocalStorageKeys.SHAKE_DETECTOR);
+            if (!string.IsNullOrEmpty(selectedChoice))
+            {
+                SelectedChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault(x => x.Value == selectedChoice).Key;
+            }
+            else
+            {
+                SelectedChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault().Key;
+                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SelectedChoice);
             }
 
         }
@@ -77,6 +90,21 @@ namespace StudentsHelper.ViewModels
             {
                 SetProperty(ref selectedModule, value);
                 localStorage.Save(LocalStorageKeys.DEFAULT_MODULE, Modules.ModulesDictionary[value]);
+            }
+        }
+
+        public List<string> ChoicesList
+        {
+            get => choicesList;
+            set => SetProperty(ref choicesList, value);
+        }
+        public string SelectedChoice
+        {
+            get => selectedChoice;
+            set
+            {
+                SetProperty(ref selectedChoice, value);
+                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SimpleChoices.ChoicesDictionary[value]);
             }
         }
         #endregion

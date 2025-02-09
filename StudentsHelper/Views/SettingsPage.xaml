@@ -23,5 +23,12 @@
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2" Style="{StaticResource SettingsLayout}">
+            <Label Text="Použít senzor otřesů při mazání úkolů" />
+            <VerticalStackLayout>
+                <Picker ItemsSource="{Binding ChoicesList}" SelectedItem="{Binding SelectedChoice}" Title="Vyberte nastavení" />
+                <Border Style="{StaticResource SettingsBorder}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

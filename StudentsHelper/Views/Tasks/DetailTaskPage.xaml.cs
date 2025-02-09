@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Interfaces;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Tasks;
 
@@ -7,12 +8,17 @@ namespace StudentsHelper.Views.Tasks;
 public partial class DetailTaskPage : ContentPage
 {
     private readonly DetailTaskViewModel viewModel;
+    private readonly IShakeDetector shakeDetector = DependencyService.Get<IShakeDetector>();
     private bool isItemClicked = false;
 
     public DetailTaskPage()
     {
         InitializeComponent();
         BindingContext = viewModel = new DetailTaskViewModel();
+        shakeDetector.OnShaken += () =>
+        {
+            viewModel.RemoveCommand.Execute(null);
+        };
     }
 
     protected override async void OnAppearing()
@@ -20,6 +26,13 @@ public partial class DetailTaskPage : ContentPage
         base.OnAppearing();
         await Task.Delay(800);
         MainLayout.IsVisible = true;
+        shakeDetector.Start();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        shakeDetector.Stop();
     }
 
     private async void Image_Tapped(object sender, TappedEventArgs e)

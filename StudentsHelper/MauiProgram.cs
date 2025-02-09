@@ -25,6 +25,7 @@ namespace StudentsHelper
             DependencyService.Register<ILocalStorage, LocalStorage>();
             DependencyService.Register<INotesManager, NotesManager>();
             DependencyService.Register<ITasksManager, TasksManager>();
+            DependencyService.Register<IShakeDetector, ShakeDetector>();
 
             // mappers
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>

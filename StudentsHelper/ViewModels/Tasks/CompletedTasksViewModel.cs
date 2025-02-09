@@ -4,6 +4,7 @@ using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Abstract;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace StudentsHelper.ViewModels.Tasks
 {
@@ -24,11 +25,58 @@ namespace StudentsHelper.ViewModels.Tasks
             {
                 await LoadTasks();
             });
+
+            RemoveCommand = new Command(
+                async (item) =>
+                {
+                    if (item is TaskItem task)
+                    {
+                        await tasksManager.DeleteTaskItemAsync(task);
+                        await LoadTasks();
+                    }
+                },
+                (item) => item is not null
+            );
+
+            SortCommand = new Command(
+                async (option) =>
+                {
+                    if (option is TaskSortOption op)
+                    {
+                        IsBusy = true;
+                        await Task.Delay(100);
+
+                        switch (op)
+                        {
+                            case TaskSortOption.ByTitle:
+                                CompletedTasks = IsSortedByTitleAsc
+                                    ? new ObservableCollection<TaskItem>(CompletedTasks.OrderByDescending(n => n.Title))
+                                    : new ObservableCollection<TaskItem>(CompletedTasks.OrderBy(n => n.Title));
+                                IsSortedByTitleAsc = !IsSortedByTitleAsc;
+                                break;
+                            case TaskSortOption.ByDateDue:
+                                CompletedTasks = IsSortedByDateCreatedAsc
+                                    ? new ObservableCollection<TaskItem>(CompletedTasks.OrderByDescending(n => n.DateCreated))
+                                    : new ObservableCollection<TaskItem>(CompletedTasks.OrderBy(n => n.DateCreated));
+                                IsSortedByDateCreatedAsc = !IsSortedByDateCreatedAsc;
+                                break;
+                            case TaskSortOption.ByPhotosCount:
+                                CompletedTasks = IsSortedByPhotosCountAsc
+                                    ? new ObservableCollection<TaskItem>(CompletedTasks.OrderByDescending(n => n.Photos.Count))
+                                    : new ObservableCollection<TaskItem>(CompletedTasks.OrderBy(n => n.Photos.Count));
+                                IsSortedByPhotosCountAsc = !IsSortedByPhotosCountAsc;
+                                break;
+                        }
+                        IsBusy = false;
+                    }
+                }
+            );
         }
         #endregion
 
         #region commands
-
+        public ICommand RemoveCommand { get; private set; }
+        public ICommand SortCommand { get; private set; }
         #endregion
 
         #region events
@@ -36,6 +84,10 @@ namespace StudentsHelper.ViewModels.Tasks
         #endregion
 
         #region properties
+        public bool IsSortedByTitleAsc { get; private set; } = false;
+        public bool IsSortedByDateCreatedAsc { get; private set; } = true;
+        public bool IsSortedByPhotosCountAsc { get; private set; } = false;
+
         public ObservableCollection<TaskItem> CompletedTasks
         {
             get => completedTasks;
@@ -48,7 +100,7 @@ namespace StudentsHelper.ViewModels.Tasks
         {
             IsBusy = true;
             var completedTasks = await tasksManager.GetFinishedTasksAsync();
-            completedTasks = [.. completedTasks.OrderByDescending(t => t.DateCreated)];
+            completedTasks = [.. completedTasks.OrderBy(t => t.DateCreated)];
             CompletedTasks.Clear();
             foreach (var task in completedTasks)
             {

@@ -5,7 +5,7 @@
              Title="Detaily úkolu">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="EditItem_Clicked" IconImageSource="{StaticResource EditIcon}" />
+        <ToolbarItem Clicked="EditItem_Clicked" IconImageSource="{StaticResource EditIcon}" IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}" />
         <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
     </ContentPage.ToolbarItems>
 

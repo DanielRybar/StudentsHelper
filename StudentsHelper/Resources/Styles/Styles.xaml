@@ -594,7 +594,6 @@
     </Style>
 
     <Style TargetType="Label" x:Key="TaskDescriptionDetail">
-        <Setter Property="FontAttributes" Value="Italic" />
         <Setter Property="Margin" Value="0,-10,0,0" />
     </Style>
 
