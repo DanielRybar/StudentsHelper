@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Platform;
+using MR.Gestures;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Services;
 
@@ -14,6 +15,7 @@ namespace StudentsHelper
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .ConfigureMRGestures()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,19 +30,19 @@ namespace StudentsHelper
             DependencyService.Register<IShakeDetector, ShakeDetector>();
 
             // mappers
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Microsoft.Maui.Controls.Entry), (handler, view) =>
             {
                 handler.PlatformView.Background = null;
                 handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
-            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(nameof(Editor), (handler, view) =>
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(nameof(Microsoft.Maui.Controls.Editor), (handler, view) =>
             {
                 handler.PlatformView.Background = null;
                 handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
                 handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToPlatform());
             });
-            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping(nameof(Picker), (handler, view) =>
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping(nameof(Microsoft.Maui.Controls.Picker), (handler, view) =>
             {
                 handler.PlatformView.Background = null;
                 handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
