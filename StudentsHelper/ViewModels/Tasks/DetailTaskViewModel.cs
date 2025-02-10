@@ -53,11 +53,24 @@ namespace StudentsHelper.ViewModels.Tasks
                 },
                 () => taskItem is not null
             );
+
+            SetCompletedCommand = new Command(
+                async () =>
+                {
+                    IsBusy = true;
+                    await tasksManager.FinishTaskItem(taskItem!.Id);
+                    await Shell.Current.GoToAsync("..");
+                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
+                    WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+                },
+                () => taskItem is not null && !taskItem.IsCompleted
+            );
         }
         #endregion
 
         #region commands
         public ICommand RemoveCommand { get; private set; }
+        public ICommand SetCompletedCommand { get; private set; }
         #endregion
 
         #region properties

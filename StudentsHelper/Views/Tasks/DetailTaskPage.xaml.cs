@@ -72,4 +72,15 @@ public partial class DetailTaskPage : ContentPage
             isItemClicked = false;
         }
     }
+
+    private void FinishItem_Clicked(object sender, EventArgs e)
+    {
+        if (sender is ToolbarItem && !isItemClicked)
+        {
+            isItemClicked = true;
+            this.LoadingText.Text = App.Current!.Resources["LoadingData"] as string;
+            viewModel.SetCompletedCommand.Execute(null);
+            isItemClicked = false;
+        }
+    }
 }

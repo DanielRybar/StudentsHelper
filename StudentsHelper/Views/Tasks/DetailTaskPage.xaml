@@ -5,8 +5,9 @@
              Title="Detaily úkolu">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="EditItem_Clicked" IconImageSource="{StaticResource EditIcon}" IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}" />
         <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
+        <ToolbarItem Clicked="EditItem_Clicked" IconImageSource="{StaticResource EditIcon}" IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}" />
+        <ToolbarItem Clicked="FinishItem_Clicked" IconImageSource="{StaticResource CheckIcon}" IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}" />
     </ContentPage.ToolbarItems>
 
     <Grid IsVisible="False" x:Name="MainLayout">
@@ -38,12 +39,14 @@
                     Clicked="EditItem_Clicked"
                     Text="Přidat popis" 
                     Style="{StaticResource AddPhotoButton}" 
+                    IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}"
                     IsVisible="{Binding Description, 
                                Converter={StaticResource EmptyStringToVisibilityConverter}, 
                                ConverterParameter={StaticResource DontMakeNeg}}" />
                 <Border Style="{StaticResource CRUDBorder}" />
                 <Label Text="Přiložené obrázky:" FontAttributes="Bold" />
                 <Button Clicked="EditItem_Clicked" Text="Přiložit obrázky" Style="{StaticResource AddPhotoButton}" 
+                        IsEnabled="{Binding IsCompleted, Converter={StaticResource InverseBooleanConverter}}"
                         IsVisible="{Binding PhotosString, 
                                    Converter={StaticResource EmptyStringToVisibilityConverter}, 
                                    ConverterParameter={StaticResource DontMakeNeg}}" />
@@ -67,7 +70,7 @@
         </ScrollView>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
             <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
-            <Label Text="{StaticResource DeletingData}" />
+            <Label Text="{StaticResource DeletingData}" x:Name="LoadingText" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
