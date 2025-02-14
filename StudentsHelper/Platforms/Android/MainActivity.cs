@@ -14,7 +14,7 @@ namespace StudentsHelper
             {
                 Configuration configuration = new();
                 configuration.SetToDefaults();
-                return CreateConfigurationContext(configuration).Resources;
+                return CreateConfigurationContext(configuration)?.Resources;
             }
         }
     }
