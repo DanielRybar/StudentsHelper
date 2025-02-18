@@ -53,10 +53,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Views\Tasks\DetailTaskPage.xaml.cs">
 	    <DependentUpon>DetailTaskPage.xaml</DependentUpon>
 	  </Compile>

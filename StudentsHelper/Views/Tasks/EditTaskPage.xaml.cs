@@ -19,7 +19,7 @@ public partial class EditTaskPage : ContentPage
     {
         base.OnAppearing();
         await Task.Delay(800);
-        CollectionLayout.IsVisible = true;
+        MainLayout.IsVisible = true;
     }
 
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)

@@ -10,7 +10,7 @@
         <ToolbarItem Command="{Binding EditTaskCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditTask_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
+    <Grid IsVisible="False" x:Name="MainLayout">
         <ScrollView x:Name="MainScrollView">
             <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
                 <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                     </HorizontalStackLayout>
                 </FlexLayout>
                 <Button Grid.Row="5" Text="Připojit fotky" Clicked="AddPhotos_Clicked" Style="{StaticResource AddPhotoButton}" />
-                <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None"  Grid.Row="6" Margin="10,20,10,10" IsVisible="False" x:Name="CollectionLayout">
+                <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None"  Grid.Row="6" Margin="10,20,10,10">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="3" />
                     </CollectionView.ItemsLayout>

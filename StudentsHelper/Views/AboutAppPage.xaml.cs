@@ -1,10 +1,14 @@
+using StudentsHelper.ViewModels;
+
 namespace StudentsHelper.Views;
 
 public partial class AboutAppPage : ContentPage
 {
-	public AboutAppPage()
+	private readonly AboutAppViewModel viewModel;
+    public AboutAppPage()
 	{
 		InitializeComponent();
-	}
+        BindingContext = viewModel = new AboutAppViewModel();
+    }
     protected override bool OnBackButtonPressed() => true;
 }
