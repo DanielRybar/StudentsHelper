@@ -155,7 +155,7 @@ public partial class ActiveTasksPage : ContentPage
                 else if (action == edit)
                 {
                     await Shell.Current.GoToAsync(nameof(EditTaskPage));
-                    // ...
+                    WeakReferenceMessenger.Default.Send(new EditingTaskMessage((grid.BindingContext as TaskItem)!));
                 }
                 else if (action == remove)
                 {
@@ -184,4 +184,6 @@ public partial class ActiveTasksPage : ContentPage
         await grid.ScaleTo(0.8, 100);
         await grid.ScaleTo(1, 100);
     }
+
+    protected override bool OnBackButtonPressed() => true;
 }

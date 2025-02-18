@@ -143,4 +143,6 @@ public partial class CompletedTasksPage : ContentPage
         await grid.ScaleTo(0.8, 100);
         await grid.ScaleTo(1, 100);
     }
+
+    protected override bool OnBackButtonPressed() => true;
 }

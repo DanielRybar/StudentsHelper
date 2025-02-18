@@ -2,11 +2,63 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Tasks.EditTaskPage"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             HideSoftInputOnTapped="True"
              Title="Upravit úkol">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding EditTaskCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditTask_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <ScrollView x:Name="MainScrollView">
+            <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Entry x:Name="TitleEntry" Text="{Binding Title}" TextChanged="Entry_TextChanged" Style="{StaticResource TaskName}" />
+                <Border Grid.Row="1" Style="{StaticResource CRUDBorder}" />
+                <Editor x:Name="ContentEditor" Text="{Binding Description}" Grid.Row="2" Style="{StaticResource TaskDescription}" />
+                <Border Grid.Row="3" Style="{StaticResource CRUDBorder}" />
+                <FlexLayout Grid.Row="4" Style="{StaticResource TaskFlexLayout}">
+                    <Label Text="Vyberte datum a čas splnění:" Style="{StaticResource HeaderActionLabel}" />
+                    <HorizontalStackLayout Spacing="5">
+                        <DatePicker Format="d. M. yyyy" Date="{Binding DueDate}" MinimumDate="{x:Static sys:DateTime.Now}" FontSize="16" DateSelected="DatePicker_DateSelected" />
+                        <TimePicker Format="H:mm" Time="{Binding SelectedTime}" FontSize="16" TimeSelected="TimePicker_TimeSelected" />
+                    </HorizontalStackLayout>
+                </FlexLayout>
+                <Button Grid.Row="5" Text="Připojit fotky" Clicked="AddPhotos_Clicked" Style="{StaticResource AddPhotoButton}" />
+                <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None"  Grid.Row="6" Margin="10,20,10,10" IsVisible="False" x:Name="CollectionLayout">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource TaskGalleryBorder}">
+                                <Grid>
+                                    <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="AspectFill">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Image_Tapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Button Clicked="RemovePhoto_Clicked" CommandParameter="{Binding}" Style="{StaticResource RemovePhotoButton}" />
+                                    <Image Source="{StaticResource CrossIcon}" Style="{StaticResource RemoveButtonIcon}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
+            <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
+            <Label Text="{StaticResource SavingData}" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

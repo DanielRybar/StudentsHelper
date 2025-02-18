@@ -74,6 +74,7 @@ namespace StudentsHelper.ViewModels.Tasks
         #endregion
 
         #region properties
+        public TaskItem TaskItem => taskItem;
         public string Title
         {
             get => title;

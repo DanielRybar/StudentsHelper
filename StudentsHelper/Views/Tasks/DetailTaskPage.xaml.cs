@@ -68,7 +68,7 @@ public partial class DetailTaskPage : ContentPage
         {
             isItemClicked = true;
             await Shell.Current.GoToAsync(nameof(EditTaskPage));
-            // ...
+            WeakReferenceMessenger.Default.Send(new EditingTaskMessage(viewModel.TaskItem));
             isItemClicked = false;
         }
     }

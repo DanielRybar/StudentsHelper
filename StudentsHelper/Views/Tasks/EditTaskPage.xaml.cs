@@ -1,9 +1,112 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core.Platform;
+using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Models.Messages;
+using StudentsHelper.ViewModels.Tasks;
+
 namespace StudentsHelper.Views.Tasks;
 
 public partial class EditTaskPage : ContentPage
 {
-	public EditTaskPage()
-	{
-		InitializeComponent();
-	}
+    private readonly EditTaskViewModel viewModel;
+    public EditTaskPage()
+    {
+        InitializeComponent();
+        BindingContext = viewModel = new EditTaskViewModel();
+    }
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await Task.Delay(800);
+        CollectionLayout.IsVisible = true;
+    }
+
+    private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (sender is Entry)
+        {
+            int length = e.NewTextValue.Length;
+            if (length == 50)
+            {
+                await Toast.Make("Maximální délka názvu je 50 znakù.").Show();
+            }
+        }
+    }
+
+    private async void EditTask_Clicked(object sender, EventArgs e)
+    {
+        if (sender is ToolbarItem)
+        {
+            await TitleEntry.HideKeyboardAsync();
+            await ContentEditor.HideKeyboardAsync();
+        }
+    }
+
+    private async void AddPhotos_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button)
+        {
+            if (viewModel.Photos.Count == 10)
+            {
+                await Toast.Make("Maximální poèet fotografií je 10.").Show();
+                return;
+            }
+            string cancel = "Zrušit";
+            string camera = "Fotoaparát";
+            string gallery = "Galerie";
+            string action = await DisplayActionSheet(
+                "Zvolte zpùsob nahrání fotografií", cancel, null,
+                camera, gallery);
+
+            if (action is not null && action != cancel)
+            {
+                if (action == camera)
+                {
+                    viewModel.AddPhotosCommand.Execute(true);
+                }
+                else if (action == gallery)
+                {
+                    viewModel.AddPhotosCommand.Execute(false);
+                }
+            }
+        }
+    }
+
+    private async void TimePicker_TimeSelected(object sender, TimeChangedEventArgs e)
+    {
+        if (sender is TimePicker && ((viewModel.DueDate + e.NewTime) < DateTime.Now.AddHours(2)))
+        {
+            await Toast.Make("Úkol musí být naplánován minimálnì 2 hodiny dopøedu.").Show();
+            viewModel.SelectedTime = e.OldTime;
+        }
+    }
+
+    private async void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        if (sender is DatePicker && ((e.NewDate + viewModel.SelectedTime) < DateTime.Now.AddHours(2)))
+        {
+            await Toast.Make("Úkol musí být naplánován minimálnì 2 hodiny dopøedu.").Show();
+            viewModel.DueDate = e.OldDate;
+        }
+    }
+
+    private void RemovePhoto_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn)
+        {
+            viewModel.RemovePhotoCommand.Execute(btn.CommandParameter);
+        }
+    }
+
+    private async void Image_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is Image image)
+        {
+            await Shell.Current.GoToAsync(nameof(ImageCarouselPage));
+            WeakReferenceMessenger.Default.Send(
+                new ImageDetailMessage(
+                    new Models.MessageModels.PhotoModel([.. viewModel.Photos], (image.BindingContext as string)!)));
+        }
+    }
 }

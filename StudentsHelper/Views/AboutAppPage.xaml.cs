@@ -6,4 +6,5 @@ public partial class AboutAppPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    protected override bool OnBackButtonPressed() => true;
 }

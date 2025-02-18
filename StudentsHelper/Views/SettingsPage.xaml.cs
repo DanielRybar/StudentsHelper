@@ -11,4 +11,5 @@ public partial class SettingsPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel = new SettingsViewModel();
     }
+    protected override bool OnBackButtonPressed() => true;
 }
