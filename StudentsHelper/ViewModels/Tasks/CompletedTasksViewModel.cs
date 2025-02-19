@@ -89,7 +89,7 @@ namespace StudentsHelper.ViewModels.Tasks
         #endregion
 
         #region events
-        public Action<int> TasksCountChanged;
+        public event Action<int> TasksCountChanged;
         #endregion
 
         #region properties

@@ -33,9 +33,9 @@ namespace StudentsHelper.ViewModels.Tasks
                 if (m.Value is not null)
                 {
                     taskItem = m.Value;
-                    Title = taskItem.Title;
+                    Title = taskItem.Title.Length == 50 ? taskItem.Title[..49] : taskItem.Title;
                     Description = taskItem.Description;
-                    DueDate = taskItem.DateDue;
+                    DueDate = taskItem.DateDue < DateTime.Now ? DateTime.Now.AddDays(1) : taskItem.DateDue;
                     SelectedTime = taskItem.DateDue.TimeOfDay;
                     Photos = new ObservableCollection<string>(taskItem.Photos);
                 }

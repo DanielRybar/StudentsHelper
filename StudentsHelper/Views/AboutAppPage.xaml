@@ -11,9 +11,21 @@
             </VerticalStackLayout>
             <Label Style="{StaticResource CenteredLabel}" Text="Studentův pomocník je mobilní aplikace pro Android vyvinutá pomocí frameworku .NET MAUI." />
             <FlexLayout JustifyContent="SpaceBetween" >
-                <Image Source="csharp.png" Style="{StaticResource AboutAppImage}" />
-                <Image Source="net_logo.png" Style="{StaticResource AboutAppImage}" />
-                <Image Source="dotnet_bot.png" Style="{StaticResource AboutAppImage}" />
+                <Image Source="csharp.png" Style="{StaticResource AboutAppImage}" AutomationId="csharp">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DevImage_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="net_logo.png" Style="{StaticResource AboutAppImage}" AutomationId="net">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DevImage_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="dotnet_bot.png" Style="{StaticResource AboutAppImage}" AutomationId="maui">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DevImage_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
             </FlexLayout>
             <Label Style="{StaticResource CenteredLabel}" Text="Slouží k&#160;vytváření poznámek a&#160;plánování úkolů s&#160;možností přidání fotek. Úkoly lze mazat i&#160;pouhým zatřesením telefonu. Aplikace ukládá data do&#160;SQLite databáze a&#160;podporuje světlý i&#160;tmavý režim." />
             <Button Command="{Binding SendFeedbackCommand}" Text="Odeslat zpětnou vazbu" Style="{StaticResource AboutAppFeedbackButton}" />

@@ -74,7 +74,7 @@ namespace StudentsHelper.ViewModels.Notes
         #endregion
 
         #region events
-        public Action<int> NotesCountChanged;
+        public event Action<int> NotesCountChanged;
         #endregion
 
         #region properties

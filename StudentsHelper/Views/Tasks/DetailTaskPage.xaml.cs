@@ -15,6 +15,10 @@ public partial class DetailTaskPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel = new DetailTaskViewModel();
+        Microsoft.Maui.Handlers.LabelHandler.Mapper.AppendToMapping(nameof(Label) + "Selectable", (handler, view) =>
+        {
+            handler.PlatformView.SetTextIsSelectable(true);
+        });
     }
 
     protected override async void OnAppearing()
