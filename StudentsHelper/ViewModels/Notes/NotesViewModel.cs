@@ -65,12 +65,20 @@ namespace StudentsHelper.ViewModels.Notes
                     }
                 }
             );
+
+            RefreshCommand = new Command(
+                async () =>
+                {
+                    await LoadNotes();
+                }
+            );
         }
         #endregion
 
         #region commands
         public ICommand RemoveCommand { get; private set; }
         public ICommand SortCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
         #endregion
 
         #region events

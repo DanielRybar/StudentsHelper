@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Constants;
+using StudentsHelper.Helpers;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
@@ -92,6 +94,13 @@ namespace StudentsHelper.ViewModels.Tasks
                     }
                 }
             );
+
+            RefreshCommand = new Command(
+                async () =>
+                {
+                    await LoadTasks();
+                }
+            );
         }
         #endregion
 
@@ -100,6 +109,7 @@ namespace StudentsHelper.ViewModels.Tasks
         public ICommand RemoveCommand { get; private set; }
         public ICommand RemoveAllCommand { get; private set; }
         public ICommand SortCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
         #endregion
 
         #region events

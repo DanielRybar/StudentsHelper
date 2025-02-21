@@ -109,4 +109,11 @@
         Color="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
         Glyph="&#xf00c;" />
 
+    <FontImageSource
+        x:Key="RefreshIcon"
+        FontFamily="FontAwesomeSolid"
+        Size="15"
+        Color="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+        Glyph="&#xf021;" />
+
 </ResourceDictionary>

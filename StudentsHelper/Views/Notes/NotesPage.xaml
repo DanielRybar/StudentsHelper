@@ -50,6 +50,7 @@
                 <VerticalStackLayout IsVisible="False" x:Name="EmptyLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <Label Text="Žádné poznámky nejsou k dispozici." Style="{StaticResource CenteredLabel}"  />
                 </VerticalStackLayout>
+                <Button Command="{Binding RefreshCommand}" Style="{StaticResource RefreshButton}" />
             </Grid>
         </ScrollView>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
