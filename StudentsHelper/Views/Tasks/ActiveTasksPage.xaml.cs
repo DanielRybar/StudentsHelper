@@ -1,4 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Constants;
+using StudentsHelper.Helpers;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
@@ -10,6 +12,7 @@ public partial class ActiveTasksPage : ContentPage
 {
     private readonly ActiveTasksViewModel viewModel;
     private readonly IShakeDetector shakeDetector = DependencyService.Get<IShakeDetector>();
+    private readonly ILocalStorage localStorage = DependencyService.Get<ILocalStorage>();
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
@@ -29,6 +32,11 @@ public partial class ActiveTasksPage : ContentPage
         {
             WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
             isLoaded = true;
+        }
+        var visibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);
+        if (!string.IsNullOrEmpty(visibilityChoice))
+        {
+            RefreshButton.IsVisible = visibilityChoice == UpdateButtonVisibilityChoices.ChoicesDictionary.First().Value;
         }
         shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();

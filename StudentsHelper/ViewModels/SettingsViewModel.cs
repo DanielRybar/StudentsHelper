@@ -12,8 +12,10 @@ namespace StudentsHelper.ViewModels
         private string selectedTheme;
         private List<string> modulesList = [.. Modules.ModulesDictionary.Keys];
         private string selectedModule;
-        private List<string> choicesList = [.. SimpleChoices.ChoicesDictionary.Keys];
-        private string selectedChoice;
+        private List<string> shakerChoicesList = [.. SimpleChoices.ChoicesDictionary.Keys];
+        private string selectedShakerChoice;
+        private List<string> visibilityChoicesList = [.. UpdateButtonVisibilityChoices.ChoicesDictionary.Keys];
+        private string selectedVisibilityChoice;
         #endregion
 
         #region services
@@ -45,17 +47,27 @@ namespace StudentsHelper.ViewModels
                 localStorage.Save(LocalStorageKeys.DEFAULT_MODULE, SelectedModule);
             }
 
-            var selectedChoice = localStorage.Load(LocalStorageKeys.SHAKE_DETECTOR);
-            if (!string.IsNullOrEmpty(selectedChoice))
+            var selectedShakerChoice = localStorage.Load(LocalStorageKeys.SHAKE_DETECTOR);
+            if (!string.IsNullOrEmpty(selectedShakerChoice))
             {
-                SelectedChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault(x => x.Value == selectedChoice).Key;
+                SelectedShakerChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault(x => x.Value == selectedShakerChoice).Key;
             }
             else
             {
-                SelectedChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault().Key;
-                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SelectedChoice);
+                SelectedShakerChoice = SimpleChoices.ChoicesDictionary.FirstOrDefault().Key;
+                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SelectedShakerChoice);
             }
 
+            var selectedVisibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);
+            if (!string.IsNullOrEmpty(selectedVisibilityChoice))
+            {
+                SelectedVisibilityChoice = UpdateButtonVisibilityChoices.ChoicesDictionary.FirstOrDefault(x => x.Value == selectedVisibilityChoice).Key;
+            }
+            else
+            {
+                SelectedVisibilityChoice = UpdateButtonVisibilityChoices.ChoicesDictionary.FirstOrDefault().Key;
+                localStorage.Save(LocalStorageKeys.UPDATE_BUTTON, SelectedVisibilityChoice);
+            }
         }
         #endregion
 
@@ -71,9 +83,12 @@ namespace StudentsHelper.ViewModels
             get => selectedTheme;
             set
             {
-                SetProperty(ref selectedTheme, value);
-                Themes.ApplyTheme(value);
-                localStorage.Save(LocalStorageKeys.APP_THEME, Themes.ThemesDictionary[value]);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    SetProperty(ref selectedTheme, value);
+                    Themes.ApplyTheme(value);
+                    localStorage.Save(LocalStorageKeys.APP_THEME, Themes.ThemesDictionary[value]);
+                }
             }
         }
 
@@ -88,23 +103,47 @@ namespace StudentsHelper.ViewModels
             get => selectedModule;
             set
             {
-                SetProperty(ref selectedModule, value);
-                localStorage.Save(LocalStorageKeys.DEFAULT_MODULE, Modules.ModulesDictionary[value]);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    SetProperty(ref selectedModule, value);
+                    localStorage.Save(LocalStorageKeys.DEFAULT_MODULE, Modules.ModulesDictionary[value]);
+                }
             }
         }
 
-        public List<string> ChoicesList
+        public List<string> ShakerChoicesList
         {
-            get => choicesList;
-            set => SetProperty(ref choicesList, value);
+            get => shakerChoicesList;
+            set => SetProperty(ref shakerChoicesList, value);
         }
-        public string SelectedChoice
+        public string SelectedShakerChoice
         {
-            get => selectedChoice;
+            get => selectedShakerChoice;
             set
             {
-                SetProperty(ref selectedChoice, value);
-                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SimpleChoices.ChoicesDictionary[value]);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    SetProperty(ref selectedShakerChoice, value);
+                    localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SimpleChoices.ChoicesDictionary[value]);
+                }
+            }
+        }
+
+        public List<string> VisibilityChoicesList
+        {
+            get => visibilityChoicesList;
+            set => SetProperty(ref visibilityChoicesList, value);
+        }
+        public string SelectedVisibilityChoice
+        {
+            get => selectedVisibilityChoice;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    SetProperty(ref selectedVisibilityChoice, value);
+                    localStorage.Save(LocalStorageKeys.UPDATE_BUTTON, UpdateButtonVisibilityChoices.ChoicesDictionary[value]);
+                }
             }
         }
         #endregion

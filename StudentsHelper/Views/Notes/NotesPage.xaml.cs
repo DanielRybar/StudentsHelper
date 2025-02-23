@@ -1,4 +1,7 @@
 using CommunityToolkit.Mvvm.Messaging;
+using StudentsHelper.Constants;
+using StudentsHelper.Helpers;
+using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
 using StudentsHelper.ViewModels.Notes;
@@ -8,6 +11,7 @@ namespace StudentsHelper.Views.Notes;
 public partial class NotesPage : ContentPage
 {
     private readonly NotesViewModel viewModel;
+    private readonly ILocalStorage localStorage = DependencyService.Get<ILocalStorage>();
     private static double scrollY = 0;
     private static bool isLongPress = false;
     private static bool isLoaded = false;
@@ -27,6 +31,11 @@ public partial class NotesPage : ContentPage
         {
             WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
             isLoaded = true;
+        }
+        var visibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);
+        if (!string.IsNullOrEmpty(visibilityChoice))
+        {
+            RefreshButton.IsVisible = visibilityChoice == UpdateButtonVisibilityChoices.ChoicesDictionary.First().Value;
         }
     }
 

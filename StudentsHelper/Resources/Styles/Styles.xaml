@@ -619,6 +619,19 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource MainHelperColor}, Dark={StaticResource Gray500}}" />
     </Style>
 
+    <Style TargetType="Label" x:Key="SubsettingLabel">
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style TargetType="Image" x:Key="SettingsImage">
+        <Setter Property="Source" Value="{AppThemeBinding Light=logo_dark.png, Dark=logo_light.png}" />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        <Setter Property="Opacity" Value=".2" />
+        <Setter Property="MaximumHeightRequest" Value="230" />
+        <Setter Property="MaximumWidthRequest" Value="230" />
+    </Style>
+
     <Style TargetType="ScrollView" x:Key="AboutAppMainView">
         <Setter Property="Orientation" Value="Vertical" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />

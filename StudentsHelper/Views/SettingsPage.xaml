@@ -8,27 +8,37 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <VerticalStackLayout Style="{StaticResource SettingsLayout}">
-            <Label Text="Režim aplikace" />
+            <Label Text="Režim aplikace" Style="{StaticResource SubsettingLabel}" />
             <VerticalStackLayout>
                 <Picker ItemsSource="{Binding ThemesList}" SelectedItem="{Binding SelectedTheme}" Title="Vyberte téma" />
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" Style="{StaticResource SettingsLayout}">
-            <Label Text="Výchozí záložka" />
+            <Label Text="Výchozí záložka" Style="{StaticResource SubsettingLabel}" />
             <VerticalStackLayout>
                 <Picker ItemsSource="{Binding ModulesList}" SelectedItem="{Binding SelectedModule}" Title="Vyberte výchozí modul" />
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="2" Style="{StaticResource SettingsLayout}">
-            <Label Text="Použít senzor otřesů při mazání úkolů" />
+            <Label Text="Použít senzor otřesů při mazání úkolů" Style="{StaticResource SubsettingLabel}" />
             <VerticalStackLayout>
-                <Picker ItemsSource="{Binding ChoicesList}" SelectedItem="{Binding SelectedChoice}" Title="Vyberte nastavení" />
+                <Picker ItemsSource="{Binding ShakerChoicesList}" SelectedItem="{Binding SelectedShakerChoice}" Title="Vyberte nastavení" />
                 <Border Style="{StaticResource SettingsBorder}" />
             </VerticalStackLayout>
         </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3" Style="{StaticResource SettingsLayout}">
+            <Label Text="Nastavit viditelnost tlačítek pro aktualizaci" Style="{StaticResource SubsettingLabel}" />
+            <VerticalStackLayout>
+                <Picker ItemsSource="{Binding VisibilityChoicesList}" SelectedItem="{Binding SelectedVisibilityChoice}" Title="Vyberte nastavení" />
+                <Border Style="{StaticResource SettingsBorder}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+        <Image Grid.Row="4" Style="{StaticResource SettingsImage}" />
     </Grid>
 </ContentPage>

@@ -42,6 +42,17 @@ namespace StudentsHelper.Navigation
                 var module = Modules.ModulesDictionary.FirstOrDefault(x => x.Value == selectedModule).Key;
                 CurrentItem = Items.FirstOrDefault(x => x.Title == module);
             }
+            // initialize settings
+            var selectedShakerOption = localStorage.Load(LocalStorageKeys.SHAKE_DETECTOR);
+            if (string.IsNullOrEmpty(selectedShakerOption))
+            {
+                localStorage.Save(LocalStorageKeys.SHAKE_DETECTOR, SimpleChoices.ChoicesDictionary.First().Value);
+            }
+            var selectedUpdateButtonOption = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);
+            if (string.IsNullOrEmpty(selectedUpdateButtonOption))
+            {
+                localStorage.Save(LocalStorageKeys.UPDATE_BUTTON, UpdateButtonVisibilityChoices.ChoicesDictionary.First().Value);
+            }
         }
     }
 }

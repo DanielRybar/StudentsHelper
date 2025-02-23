@@ -48,7 +48,7 @@
                 <VerticalStackLayout IsVisible="False" x:Name="EmptyLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <Label Text="Žádné aktivní úkoly nejsou k dispozici." Style="{StaticResource CenteredLabel}"  />
                 </VerticalStackLayout>
-                <Button Command="{Binding RefreshCommand}" Style="{StaticResource RefreshButton}" />
+                <Button x:Name="RefreshButton" Command="{Binding RefreshCommand}" Style="{StaticResource RefreshButton}" />
             </Grid>
         </ScrollView>
         <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
