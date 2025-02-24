@@ -65,28 +65,33 @@ namespace StudentsHelper.ViewModels.Tasks
                     if (option is TaskSortOption op)
                     {
                         IsBusy = true;
-                        await Task.Delay(100);
-
+                        await Task.Delay(300);
+                        List<TaskItem> items = [];
                         switch (op)
                         {
                             case TaskSortOption.ByTitle:
-                                PendingTasks = IsSortedByTitleAsc
-                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.Title))
-                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.Title));
+                                items = IsSortedByTitleAsc
+                                    ? [.. PendingTasks.OrderByDescending(n => n.Title)]
+                                    : [.. PendingTasks.OrderBy(n => n.Title)];
                                 IsSortedByTitleAsc = !IsSortedByTitleAsc;
                                 break;
                             case TaskSortOption.ByDateDue:
-                                PendingTasks = IsSortedByDateDueAsc
-                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.DateDue))
-                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.DateDue));
+                                items = IsSortedByDateDueAsc
+                                    ? [.. PendingTasks.OrderByDescending(n => n.DateDue)]
+                                    : [.. PendingTasks.OrderBy(n => n.DateDue)];
                                 IsSortedByDateDueAsc = !IsSortedByDateDueAsc;
                                 break;
                             case TaskSortOption.ByPhotosCount:
-                                PendingTasks = IsSortedByPhotosCountAsc
-                                    ? new ObservableCollection<TaskItem>(PendingTasks.OrderByDescending(n => n.Photos.Count))
-                                    : new ObservableCollection<TaskItem>(PendingTasks.OrderBy(n => n.Photos.Count));
+                                items = IsSortedByPhotosCountAsc
+                                    ? [.. PendingTasks.OrderByDescending(n => n.Photos.Count)]
+                                    : [.. PendingTasks.OrderBy(n => n.Photos.Count)];
                                 IsSortedByPhotosCountAsc = !IsSortedByPhotosCountAsc;
                                 break;
+                        }
+                        PendingTasks.Clear();
+                        foreach (var item in items)
+                        {
+                            PendingTasks.Add(item);
                         }
                         IsBusy = false;
                     }
@@ -138,7 +143,15 @@ namespace StudentsHelper.ViewModels.Tasks
                 PendingTasks.Add(task);
             }
             TasksCountChanged?.Invoke(PendingTasks.Count);
+            InitializeSortingOptions();
             IsBusy = false;
+        }
+
+        private void InitializeSortingOptions()
+        {
+            IsSortedByTitleAsc = false;
+            IsSortedByDateDueAsc = true;
+            IsSortedByPhotosCountAsc = false;
         }
         #endregion
     }

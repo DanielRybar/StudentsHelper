@@ -44,22 +44,27 @@ namespace StudentsHelper.ViewModels.Notes
                     if (option is NoteSortOption op)
                     {
                         IsBusy = true;
-                        await Task.Delay(100);
-
+                        await Task.Delay(300);
+                        List<NoteItem> items = [];
                         switch (op)
                         {
                             case NoteSortOption.ByTitle:
-                                Notes = IsSortedByTitleAsc
-                                    ? new ObservableCollection<NoteItem>(Notes.OrderByDescending(n => n.Title))
-                                    : new ObservableCollection<NoteItem>(Notes.OrderBy(n => n.Title));
+                                items = IsSortedByTitleAsc
+                                    ? [.. Notes.OrderByDescending(n => n.Title)]
+                                    : [.. Notes.OrderBy(n => n.Title)];
                                 IsSortedByTitleAsc = !IsSortedByTitleAsc;
                                 break;
                             case NoteSortOption.ByDate:
-                                Notes = IsSortedByDateAsc
-                                    ? new ObservableCollection<NoteItem>(Notes.OrderByDescending(n => n.Date))
-                                    : new ObservableCollection<NoteItem>(Notes.OrderBy(n => n.Date));
+                                items = IsSortedByDateAsc
+                                    ? [.. Notes.OrderByDescending(n => n.Date)]
+                                    : [.. Notes.OrderBy(n => n.Date)];
                                 IsSortedByDateAsc = !IsSortedByDateAsc;
                                 break;
+                        }
+                        Notes.Clear();
+                        foreach (var item in items)
+                        {
+                            Notes.Add(item);
                         }
                         IsBusy = false;
                     }
@@ -108,7 +113,14 @@ namespace StudentsHelper.ViewModels.Notes
                 Notes.Add(note);
             }
             NotesCountChanged?.Invoke(Notes.Count);
+            InitializeSortingOptions();
             IsBusy = false;
+        }
+
+        private void InitializeSortingOptions()
+        {
+            IsSortedByTitleAsc = false;
+            IsSortedByDateAsc = false;
         }
         #endregion
     }
