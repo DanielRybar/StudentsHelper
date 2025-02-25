@@ -150,7 +150,7 @@ namespace StudentsHelper.ViewModels.Tasks
                         IsBusy = true;
                         await tasksManager.StoreTaskItemAsync(taskItem);
                         await Shell.Current.GoToAsync("//" + nameof(ActiveTasksPage));
-                        WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
+                        WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage(MessageValues.COLLECTION_MODIFIED));
                     }
                 }
             );

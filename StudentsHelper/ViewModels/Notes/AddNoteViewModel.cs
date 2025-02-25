@@ -33,7 +33,7 @@ namespace StudentsHelper.ViewModels.Notes
                     IsBusy = true;
                     await notesManager.StoreNoteItemAsync(item);
                     await Shell.Current.GoToAsync("..");
-                    WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
+                    WeakReferenceMessenger.Default.Send(new UpdateNotesMessage(MessageValues.COLLECTION_MODIFIED));
                 }
             );
         }

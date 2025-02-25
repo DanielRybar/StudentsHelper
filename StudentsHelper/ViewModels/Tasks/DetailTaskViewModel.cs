@@ -48,8 +48,8 @@ namespace StudentsHelper.ViewModels.Tasks
                     IsBusy = true;
                     await tasksManager.DeleteTaskItemAsync(taskItem!);
                     await Shell.Current.GoToAsync("..");
-                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
-                    WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage(MessageValues.COLLECTION_MODIFIED));
+                    WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage(MessageValues.UPDATE_FROM_VIEWMODEL));
                 },
                 () => taskItem is not null
             );
@@ -60,8 +60,8 @@ namespace StudentsHelper.ViewModels.Tasks
                     IsBusy = true;
                     await tasksManager.FinishTaskItem(taskItem!.Id);
                     await Shell.Current.GoToAsync("..");
-                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
-                    WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage(MessageValues.COLLECTION_MODIFIED));
+                    WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage(MessageValues.COLLECTION_MODIFIED));
                 },
                 () => taskItem is not null && !taskItem.IsCompleted
             );

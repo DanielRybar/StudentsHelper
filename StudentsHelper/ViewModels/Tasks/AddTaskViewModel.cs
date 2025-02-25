@@ -60,7 +60,7 @@ namespace StudentsHelper.ViewModels.Tasks
                     IsBusy = true;
                     await tasksManager.StoreTaskItemAsync(task);
                     await Shell.Current.GoToAsync("..");
-                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
+                    WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage(MessageValues.COLLECTION_MODIFIED));
                 }
             );
 

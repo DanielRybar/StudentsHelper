@@ -30,7 +30,7 @@ public partial class ActiveTasksPage : ContentPage
         base.OnAppearing();
         if (!isLoaded)
         {
-            WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage("Collection modified"));
+            WeakReferenceMessenger.Default.Send(new UpdatePendingTasksMessage(MessageValues.COLLECTION_MODIFIED));
             isLoaded = true;
         }
         var visibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);

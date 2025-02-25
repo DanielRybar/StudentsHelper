@@ -23,6 +23,7 @@ public partial class CompletedTasksPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel = new CompletedTasksViewModel();
         viewModel.TasksCountChanged += CheckToolbarItems;
+        viewModel.UpdatePage += () => isLoaded = false;
     }
 
     protected override void OnAppearing()
@@ -30,7 +31,7 @@ public partial class CompletedTasksPage : ContentPage
         base.OnAppearing();
         if (!isLoaded)
         {
-            WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+            WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage(MessageValues.UPDATE_FROM_VIEWMODEL));
             isLoaded = true;
         }
         var visibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);

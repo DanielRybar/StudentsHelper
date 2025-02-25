@@ -33,7 +33,7 @@ namespace StudentsHelper.ViewModels.Tasks
                     {
                         await tasksManager.FinishTaskItem(task.Id);
                         await LoadTasks();
-                        WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage("Collection modified"));
+                        WeakReferenceMessenger.Default.Send(new UpdateCompletedTasksMessage(MessageValues.COLLECTION_MODIFIED));
                     }
                 },
                 (item) => item is not null
@@ -135,6 +135,7 @@ namespace StudentsHelper.ViewModels.Tasks
         private async Task LoadTasks()
         {
             IsBusy = true;
+            await Task.Delay(500);
             var pendingTasks = await tasksManager.GetPendingTasksAsync();
             pendingTasks = [.. pendingTasks.OrderBy(t => t.DateDue).ThenByDescending(t => t.DateCreated)];
             PendingTasks.Clear();

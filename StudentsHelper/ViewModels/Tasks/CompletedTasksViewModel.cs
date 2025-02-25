@@ -23,7 +23,15 @@ namespace StudentsHelper.ViewModels.Tasks
         {
             WeakReferenceMessenger.Default.Register<UpdateCompletedTasksMessage>(this, async (r, m) =>
             {
-                await LoadTasks();
+                // collection updates will be perfomed on the page itself for better performance
+                if (m?.Value != MessageValues.COLLECTION_MODIFIED)
+                {
+                    await LoadTasks();
+                }
+                else
+                {
+                    UpdatePage?.Invoke();
+                }
             });
 
             RemoveCommand = new Command(
@@ -103,6 +111,7 @@ namespace StudentsHelper.ViewModels.Tasks
 
         #region events
         public event Action<int> TasksCountChanged;
+        public event Action UpdatePage;
         #endregion
 
         #region properties
@@ -121,6 +130,7 @@ namespace StudentsHelper.ViewModels.Tasks
         private async Task LoadTasks()
         {
             IsBusy = true;
+            await Task.Delay(500);
             var completedTasks = await tasksManager.GetFinishedTasksAsync();
             completedTasks = [.. completedTasks.OrderBy(t => t.DateCreated)];
             CompletedTasks.Clear();

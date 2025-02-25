@@ -29,7 +29,7 @@ public partial class NotesPage : ContentPage
         base.OnAppearing();
         if (!isLoaded)
         {
-            WeakReferenceMessenger.Default.Send(new UpdateNotesMessage("Collection modified"));
+            WeakReferenceMessenger.Default.Send(new UpdateNotesMessage(MessageValues.COLLECTION_MODIFIED));
             isLoaded = true;
         }
         var visibilityChoice = localStorage.Load(LocalStorageKeys.UPDATE_BUTTON);
