@@ -105,6 +105,7 @@ namespace StudentsHelper.ViewModels.Notes
         private async Task LoadNotes()
         {
             IsBusy = true;
+            await Task.Delay(500);
             var notes = await notesManager.GetNoteItemsAsync();
             notes = [.. notes.OrderByDescending(n => n.Date)];
             Notes.Clear();
