@@ -44,4 +44,4 @@ jobs:
       with:
         tag_name: v1.0.${{ github.run_number }}
         files: ./app-build/*.apk
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_TOKEN }}
