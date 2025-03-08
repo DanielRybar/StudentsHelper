@@ -1,4 +1,4 @@
-name: Build .NET MAUI App (CI)
+name: Build and Deploy .NET MAUI App
 
 on:
   push:
@@ -13,13 +13,35 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    # Set up .NET SDK
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+
+    # Install .NET MAUI workload
     - name: Install .NET MAUI
       run: dotnet workload install maui
+
+    # Restore dependencies
     - name: Restore dependencies
       run: dotnet restore
+
+    # Build the project
     - name: Build
       run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
+
+    # Create APK file and upload to GitHub Releases
+    - name: Publish APK to GitHub Releases
+      run: |
+        dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/
+        echo "APK published"
+
+    # Create a new release tag and upload APK
+    - name: Create Release and Upload APK
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        files: ./app-build/*.apk
+        token: ${{ secrets.GITHUB_TOKEN }}
