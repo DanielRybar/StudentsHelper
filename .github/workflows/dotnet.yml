@@ -32,16 +32,21 @@ jobs:
     - name: Build
       run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
 
-    # Create APK file and upload to GitHub Releases
+    # Create APK file and publish to the specified output folder
     - name: Publish APK to GitHub Releases
       run: |
         dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/
         echo "APK published"
 
-    # Create a new release tag and upload APK
+    # Rename APK file to StudentsHelper.apk
+    - name: Rename APK to StudentsHelper.apk
+      run: |
+        move ./app-build/*.apk ./app-build/StudentsHelper.apk
+
+    # Create a new release tag and upload renamed APK to GitHub Releases
     - name: Create Release and Upload APK
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v1.0.${{ github.run_number }}
-        files: ./app-build/*.apk
+        files: ./app-build/StudentsHelper.apk
         token: ${{ secrets.GH_TOKEN }}
