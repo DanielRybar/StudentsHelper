@@ -4,6 +4,7 @@ using Microsoft.Maui.Platform;
 using MR.Gestures;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Services;
+using System.Globalization;
 
 namespace StudentsHelper
 {
@@ -12,6 +13,11 @@ namespace StudentsHelper
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            var cultureInfo = new CultureInfo("cs-CZ");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
