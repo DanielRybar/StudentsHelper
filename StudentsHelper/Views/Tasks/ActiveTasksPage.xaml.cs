@@ -54,7 +54,7 @@ public partial class ActiveTasksPage : ContentPage
         if (viewModel.PendingTasks.Count > 0)
         {
             Vibration.Default.Vibrate();
-            if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit všechny aktivní úkoly?", "Ano", "Ne"))
+            if (await DisplayAlert("PotvrzenÃ­", "Opravdu chcete odstranit vÅ¡echny aktivnÃ­ Ãºkoly?", "Ano", "Ne"))
             {
                 viewModel.RemoveAllCommand.Execute(null);
                 scrollY = 0;
@@ -76,12 +76,12 @@ public partial class ActiveTasksPage : ContentPage
                     IconImageSource = App.Current!.Resources["SortIcon"] as FontImageSource,
                     Command = new Command(async () =>
                     {
-                        string cancel = "Zrušit";
-                        string name = "Dle názvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnì" : "vzestupnì") + ")";
-                        string date = "Dle data splnìní (" + (viewModel.IsSortedByDateDueAsc ? "sestupnì" : "vzestupnì") + ")";
-                        string photosCount = "Dle poètu fotografií (" + (viewModel.IsSortedByPhotosCountAsc ? "sestupnì" : "vzestupnì") + ")";
+                        string cancel = "ZruÅ¡it";
+                        string name = "Dle nÃ¡zvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnÄ›" : "vzestupnÄ›") + ")";
+                        string date = "Dle data splnÄ›nÃ­ (" + (viewModel.IsSortedByDateDueAsc ? "sestupnÄ›" : "vzestupnÄ›") + ")";
+                        string photosCount = "Dle poÄtu fotografiÃ­ (" + (viewModel.IsSortedByPhotosCountAsc ? "sestupnÄ›" : "vzestupnÄ›") + ")";
                         string action = await DisplayActionSheet(
-                            "Øadit úkoly", cancel, null,
+                            "Å˜adit Ãºkoly", cancel, null,
                             name, date, photosCount);
 
                         if (action is not null && action != cancel)
@@ -147,10 +147,10 @@ public partial class ActiveTasksPage : ContentPage
             isLongPress = true;
             scrollY = MainScrollView.ScrollY;
 
-            string cancel = "Zrušit";
-            string setAsCompleted = "Oznaèit úkol jako dokonèenı";
-            string edit = "Upravit úkol";
-            string remove = "Smazat úkol";
+            string cancel = "ZruÅ¡it";
+            string setAsCompleted = "OznaÄit Ãºkol jako dokonÄenÃ½";
+            string edit = "Upravit Ãºkol";
+            string remove = "Smazat Ãºkol";
             string action = await DisplayActionSheet(
                 "Vyberte akci", cancel, null,
                 setAsCompleted, edit, remove);

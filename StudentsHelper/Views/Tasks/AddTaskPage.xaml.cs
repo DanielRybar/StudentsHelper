@@ -22,7 +22,7 @@ public partial class AddTaskPage : ContentPage
             int length = e.NewTextValue.Length;
             if (length == 50)
             {
-                await Toast.Make("Maxim·lnÌ dÈlka n·zvu je 50 znak˘.").Show();
+                await Toast.Make("Maxim√°ln√≠ d√©lka n√°zvu je 50 znak≈Ø.").Show();
             }
         }
     }
@@ -42,14 +42,14 @@ public partial class AddTaskPage : ContentPage
         {
             if (viewModel.Photos.Count == 10)
             {
-                await Toast.Make("Maxim·lnÌ poËet fotografiÌ je 10.").Show();
+                await Toast.Make("Maxim√°ln√≠ poƒçet fotografi√≠ je 10.").Show();
                 return;
             }
-            string cancel = "Zruöit";
-            string camera = "Fotoapar·t";
+            string cancel = "Zru≈°it";
+            string camera = "Fotoapar√°t";
             string gallery = "Galerie";
             string action = await DisplayActionSheet(
-                "Zvolte zp˘sob nahr·nÌ fotografiÌ", cancel, null,
+                "Zvolte zp≈Øsob nahr√°n√≠ fotografi√≠", cancel, null,
                 camera, gallery);
 
             if (action is not null && action != cancel)
@@ -70,7 +70,7 @@ public partial class AddTaskPage : ContentPage
     {
         if (sender is TimePicker && ((viewModel.DueDate + e.NewTime) < DateTime.Now.AddHours(2)))
         {
-            await Toast.Make("⁄kol musÌ b˝t napl·nov·n minim·lnÏ 2 hodiny dop¯edu.").Show();
+            await Toast.Make("√ökol mus√≠ b√Ωt napl√°nov√°n minim√°lnƒõ 2 hodiny dop≈ôedu.").Show();
             viewModel.SelectedTime = e.OldTime;
         }
     }
@@ -79,7 +79,7 @@ public partial class AddTaskPage : ContentPage
     {
         if (sender is DatePicker && ((e.NewDate + viewModel.SelectedTime) < DateTime.Now.AddHours(2)))
         {
-            await Toast.Make("⁄kol musÌ b˝t napl·nov·n minim·lnÏ 2 hodiny dop¯edu.").Show();
+            await Toast.Make("√ökol mus√≠ b√Ωt napl√°nov√°n minim√°lnƒõ 2 hodiny dop≈ôedu.").Show();
             viewModel.DueDate = e.OldDate;
         }
     }

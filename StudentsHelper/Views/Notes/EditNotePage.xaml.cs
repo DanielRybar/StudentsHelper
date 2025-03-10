@@ -20,7 +20,7 @@ public partial class EditNotePage : ContentPage
             int length = e.NewTextValue.Length;
             if (length == 50)
             {
-                await Toast.Make("Maxim·lnÌ dÈlka n·zvu je 50 znak˘.").Show();
+                await Toast.Make("Maxim√°ln√≠ d√©lka n√°zvu je 50 znak≈Ø.").Show();
             }
         }
     }
@@ -32,7 +32,7 @@ public partial class EditNotePage : ContentPage
             await TitleEntry.HideKeyboardAsync();
             await ContentEditor.HideKeyboardAsync();
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
-            if (await DisplayAlert("PotvrzenÌ", "Opravdu chcete odstranit tuto poloûku?", "Ano", "Ne"))
+            if (await DisplayAlert("Potvrzen√≠", "Opravdu chcete odstranit tuto polo≈æku?", "Ano", "Ne"))
             {
                 this.LoadingText.Text = App.Current!.Resources["DeletingData"] as string;
                 viewModel.RemoveCommand.Execute(null);

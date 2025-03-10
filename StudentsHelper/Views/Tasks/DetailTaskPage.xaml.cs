@@ -59,7 +59,7 @@ public partial class DetailTaskPage : ContentPage
         if (sender is ToolbarItem)
         {
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
-            if (await DisplayAlert("PotvrzenÌ", "Opravdu chcete odstranit tuto poloûku?", "Ano", "Ne"))
+            if (await DisplayAlert("Potvrzen√≠", "Opravdu chcete odstranit tuto polo≈æku?", "Ano", "Ne"))
             {
                 viewModel.RemoveCommand.Execute(null);
             }

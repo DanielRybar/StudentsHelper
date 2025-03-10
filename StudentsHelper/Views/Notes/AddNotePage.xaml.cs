@@ -21,7 +21,7 @@ public partial class AddNotePage : ContentPage
             int length = e.NewTextValue.Length;
             if (length == 50)
             {
-                await Toast.Make("Maximální délka názvu je 50 znakù.").Show();
+                await Toast.Make("MaximÃ¡lnÃ­ dÃ©lka nÃ¡zvu je 50 znakÅ¯.").Show();
             }
         }
     }

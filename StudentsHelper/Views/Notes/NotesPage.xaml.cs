@@ -53,11 +53,11 @@ public partial class NotesPage : ContentPage
                     IconImageSource = App.Current!.Resources["SortIcon"] as FontImageSource,
                     Command = new Command(async () =>
                     {
-                        string cancel = "Zrušit";
-                        string name = "Dle názvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnì" : "vzestupnì") + ")";
-                        string date = "Dle data (" + (viewModel.IsSortedByDateAsc ? "sestupnì" : "vzestupnì") + ")";
+                        string cancel = "ZruÅ¡it";
+                        string name = "Dle nÃ¡zvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnÄ›" : "vzestupnÄ›") + ")";
+                        string date = "Dle data (" + (viewModel.IsSortedByDateAsc ? "sestupnÄ›" : "vzestupnÄ›") + ")";
                         string action = await DisplayActionSheet(
-                            "Øadit poznámky", cancel, null,
+                            "Å˜adit poznÃ¡mky", cancel, null,
                             name, date);
 
                         if (action is not null && action != cancel)
@@ -114,7 +114,7 @@ public partial class NotesPage : ContentPage
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             isLongPress = true;
             scrollY = MainScrollView.ScrollY;
-            if (await DisplayAlert("Potvrzení", "Opravdu chcete odstranit tuto položku?", "Ano", "Ne"))
+            if (await DisplayAlert("PotvrzenÃ­", "Opravdu chcete odstranit tuto poloÅ¾ku?", "Ano", "Ne"))
                 viewModel.RemoveCommand.Execute(note);
             isLongPress = false;
         }

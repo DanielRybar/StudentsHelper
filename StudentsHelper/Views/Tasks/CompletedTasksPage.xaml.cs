@@ -55,7 +55,7 @@ public partial class CompletedTasksPage : ContentPage
         if (viewModel.CompletedTasks.Count > 0)
         {
             Vibration.Default.Vibrate();
-            if (await DisplayAlert("PotvrzenÌ", "Opravdu chcete odstranit vöechny dokonËenÈ ˙koly?", "Ano", "Ne"))
+            if (await DisplayAlert("Potvrzen√≠", "Opravdu chcete odstranit v≈°echny dokonƒçen√© √∫koly?", "Ano", "Ne"))
             {
                 viewModel.RemoveAllCommand.Execute(null);
                 scrollY = 0;
@@ -77,12 +77,12 @@ public partial class CompletedTasksPage : ContentPage
                     IconImageSource = App.Current!.Resources["SortIcon"] as FontImageSource,
                     Command = new Command(async () =>
                     {
-                        string cancel = "Zruöit";
-                        string name = "Dle n·zvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnÏ" : "vzestupnÏ") + ")";
-                        string date = "Dle data vytvo¯enÌ (" + (viewModel.IsSortedByDateCreatedAsc ? "sestupnÏ" : "vzestupnÏ") + ")";
-                        string photosCount = "Dle poËtu fotografiÌ (" + (viewModel.IsSortedByPhotosCountAsc ? "sestupnÏ" : "vzestupnÏ") + ")";
+                        string cancel = "Zru≈°it";
+                        string name = "Dle n√°zvu (" + (viewModel.IsSortedByTitleAsc ? "sestupnƒõ" : "vzestupnƒõ") + ")";
+                        string date = "Dle data vytvo≈ôen√≠ (" + (viewModel.IsSortedByDateCreatedAsc ? "sestupnƒõ" : "vzestupnƒõ") + ")";
+                        string photosCount = "Dle poƒçtu fotografi√≠ (" + (viewModel.IsSortedByPhotosCountAsc ? "sestupnƒõ" : "vzestupnƒõ") + ")";
                         string action = await DisplayActionSheet(
-                            "ÿadit ˙koly", cancel, null,
+                            "≈òadit √∫koly", cancel, null,
                             name, date, photosCount);
 
                         if (action is not null && action != cancel)
@@ -128,7 +128,7 @@ public partial class CompletedTasksPage : ContentPage
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             isLongPress = true;
             scrollY = MainScrollView.ScrollY;
-            if (await DisplayAlert("PotvrzenÌ", "Opravdu chcete odstranit tuto poloûku?", "Ano", "Ne"))
+            if (await DisplayAlert("Potvrzen√≠", "Opravdu chcete odstranit tuto polo≈æku?", "Ano", "Ne"))
                 viewModel.RemoveCommand.Execute(task);
             isLongPress = false;
         }
