@@ -40,6 +40,8 @@ public partial class AddTaskPage : ContentPage
     {
         if (sender is Button)
         {
+            await TitleEntry.HideKeyboardAsync();
+            await ContentEditor.HideKeyboardAsync();
             if (viewModel.Photos.Count == 10)
             {
                 await Toast.Make("Maximální počet fotografií je 10.").Show();
