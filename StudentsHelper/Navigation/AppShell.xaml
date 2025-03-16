@@ -43,7 +43,7 @@
     </FlyoutItem>
 
     <Shell.FlyoutFooter>
-        <Label Text="© Daniel Rybář, 2024" Style="{StaticResource ShellLabel}" Padding="0,0,0,10"/>
+        <Label Text="© Daniel Rybář, 2025" Style="{StaticResource ShellLabel}" Padding="0,0,0,10"/>
     </Shell.FlyoutFooter>
 
 </Shell>
