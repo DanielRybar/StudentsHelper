@@ -28,9 +28,15 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    # Build the project
-    - name: Build
-      run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
+    # Decode and save keystore file
+    - name: Decode keystore
+      run: |
+        echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > studentshelper.keystore
+
+    # Build and sign the project
+    - name: Build and sign APK
+      run: |
+        dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/ /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=studentshelper.keystore /p:AndroidSigningKeyAlias=studentshelper /p:AndroidSigningKeyPass=${{ secrets.KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.STORE_PASSWORD }}
 
     # Create APK file and publish to the specified output folder
     - name: Publish APK to GitHub Releases
