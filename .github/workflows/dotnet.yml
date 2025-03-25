@@ -2,9 +2,9 @@ name: Build and Deploy .NET MAUI App
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "test" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "test" ]
 
 jobs:
   build:
@@ -30,8 +30,9 @@ jobs:
 
     # Decode and save keystore file
     - name: Decode keystore
+      shell: pwsh
       run: |
-        echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > studentshelper.keystore
+        [IO.File]::WriteAllBytes("studentshelper.keystore", [Convert]::FromBase64String("${{ secrets.ANDROID_KEYSTORE }}"))
 
     # Build and sign the project
     - name: Build and sign APK
