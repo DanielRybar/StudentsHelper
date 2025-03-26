@@ -2,9 +2,9 @@ name: Build and Deploy .NET MAUI App
 
 on:
   push:
-    branches: [ "test" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "test" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -28,16 +28,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    # Decode and save keystore file
-    - name: Decode keystore
-      shell: pwsh
-      run: |
-        [IO.File]::WriteAllBytes("studentshelper.keystore", [Convert]::FromBase64String("${{ secrets.ANDROID_KEYSTORE }}"))
-
-    # Build and sign the project
-    - name: Build and sign APK
-      run: |
-        dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/ /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=studentshelper.keystore /p:AndroidSigningKeyAlias=studentshelper /p:AndroidSigningKeyPass=${{ secrets.KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.STORE_PASSWORD }}
+    # Build the project
+    - name: Build
+      run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
 
     # Create APK file and publish to the specified output folder
     - name: Publish APK to GitHub Releases
