@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -33,20 +32,36 @@ jobs:
       run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
 
     # Create APK file and publish to the specified output folder
-    - name: Publish APK to GitHub Releases
+    - name: Publish APK to folder
       run: |
         dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/
-        echo "APK published"
 
-    # Rename APK file to StudentsHelper.apk
-    - name: Rename APK to StudentsHelper.apk
+    # Set up JDK for signature
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: "temurin"
+        java-version: "17"
+
+    # Decode keystore from base64
+    - name: Decode keystore from base64
+      shell: pwsh
       run: |
-        move ./app-build/*.apk ./app-build/StudentsHelper.apk
+        [System.IO.File]::WriteAllBytes("keystore.jks", [Convert]::FromBase64String("${{ secrets.KEYSTORE_FILE_B64 }}"))
+
+    # Sign APK with Jarsigner
+    - name: Sign APK with Jarsigner
+      shell: pwsh
+      run: |
+        jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore keystore.jks `
+        -storepass "${{ secrets.KEYSTORE_PASSWORD }}" `
+        -keypass "${{ secrets.KEYSTORE_PASSWORD }}" `
+        -signedjar ./app-build/StudentsHelper-Signed.apk ./app-build/*.apk shkey
 
     # Create a new release tag and upload renamed APK to GitHub Releases
     - name: Create Release and Upload APK
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v1.0.${{ github.run_number }}
-        files: ./app-build/StudentsHelper.apk
+        files: ./app-build/StudentsHelper-Signed.apk
         token: ${{ secrets.GH_TOKEN }}
