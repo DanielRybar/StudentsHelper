@@ -5,8 +5,8 @@
              HideSoftInputOnTapped="True"
              Title="Upravit poznámku">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditNote_Clicked" />
         <ToolbarItem Clicked="RemoveItem_Clicked" IconImageSource="{StaticResource DeleteIcon}" />
+        <ToolbarItem Command="{Binding EditNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="EditNote_Clicked" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">

@@ -26,7 +26,7 @@ public partial class CompletedTasksPage : ContentPage
         viewModel.UpdatePage += () => isLoaded = false;
     }
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
         if (!isLoaded)
@@ -41,6 +41,7 @@ public partial class CompletedTasksPage : ContentPage
         }
         shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();
+        await MainCollectionView.ResetAnimation();
     }
 
     protected override void OnDisappearing()

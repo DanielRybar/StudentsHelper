@@ -27,7 +27,7 @@ namespace StudentsHelper.ViewModels.Notes
                 if (m.Value is not null)
                 {
                     noteItem = m.Value;
-                    Title = noteItem.Title;
+                    Title = noteItem.Title.Length == 50 ? noteItem.Title[..49] : noteItem.Title;
                     Content = noteItem.Content;
                 }
             });

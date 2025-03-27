@@ -25,7 +25,7 @@ public partial class ActiveTasksPage : ContentPage
         viewModel.TasksCountChanged += CheckToolbarItems;
     }
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
         if (!isLoaded)
@@ -40,6 +40,7 @@ public partial class ActiveTasksPage : ContentPage
         }
         shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();
+        await MainCollectionView.ResetAnimation();
     }
 
     protected override void OnDisappearing()

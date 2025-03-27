@@ -24,7 +24,7 @@ public partial class NotesPage : ContentPage
         viewModel.NotesCountChanged += CheckToolbarItems;
     }
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
         if (!isLoaded)
@@ -37,6 +37,7 @@ public partial class NotesPage : ContentPage
         {
             RefreshButton.IsVisible = visibilityChoice == UpdateButtonVisibilityChoices.ChoicesDictionary.First().Value;
         }
+        await MainCollectionView.ResetAnimation();
     }
 
     private void CheckToolbarItems(int count)
