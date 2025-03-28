@@ -29,24 +29,67 @@ jobs:
       run: dotnet restore
 
     # Build the project
-    - name: Build
+    - name: Build the project
       run: dotnet build StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android --no-restore
 
     # Create APK file and publish to the specified output folder
-    - name: Publish APK to GitHub Releases
+    - name: Publish APK to folder
       run: |
         dotnet publish StudentsHelper/StudentsHelper.csproj -c Release -f net9.0-android -o ./app-build/
-        echo "APK published"
 
-    # Rename APK file to StudentsHelper.apk
-    - name: Rename APK to StudentsHelper.apk
+    # Decode keystore from base64
+    - name: Decode keystore from base64
+      shell: pwsh
       run: |
-        move ./app-build/*.apk ./app-build/StudentsHelper.apk
+        [System.IO.File]::WriteAllBytes("keystore.jks", [Convert]::FromBase64String("${{ secrets.KEYSTORE_FILE_B64 }}"))
+
+    # Set up Android SDK tools
+    - name: Install Android SDK tools
+      run: |
+        choco install android-sdk --no-progress
+
+    # Ensure zipalign and apksigner are available
+    - name: Add Android SDK to PATH
+      run: |
+        echo "C:\Program Files (x86)\Android\android-sdk\build-tools\33.0.2" >> $env:GITHUB_PATH
+
+    # Find the APK file in the output directory
+    - name: Find APK file
+      id: find_apk
+      shell: pwsh
+      run: |
+        $apkFile = Get-ChildItem -Path ./app-build -Filter "*.apk" -Recurse | Select-Object -First 1
+        if ($apkFile) {
+            echo "APK_PATH=$($apkFile.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+            Write-Host "Found APK: $($apkFile.FullName)"
+        } else {
+            Write-Host "ERROR: No APK file found!"
+            exit 1
+        }
+
+    # Zipalign APK using zipalign tool
+    - name: Zipalign APK
+      shell: pwsh
+      run: |
+        zipalign -v -p 4 "$env:APK_PATH" "./app-build/aligned.apk"
+
+    # Sign APK using apksigner
+    - name: Sign APK
+      shell: pwsh
+      run: |
+        apksigner sign --ks keystore.jks --ks-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" `
+        --key-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" --out ./app-build/StudentsHelper-Signed.apk ./app-build/aligned.apk
+
+    # Verify APK signature
+    - name: Verify APK signature
+      shell: pwsh
+      run: |
+        apksigner verify --verbose --print-certs ./app-build/StudentsHelper-Signed.apk 
 
     # Create a new release tag and upload renamed APK to GitHub Releases
     - name: Create Release and Upload APK
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v1.0.${{ github.run_number }}
-        files: ./app-build/StudentsHelper.apk
+        files: ./app-build/StudentsHelper-Signed.apk
         token: ${{ secrets.GH_TOKEN }}
