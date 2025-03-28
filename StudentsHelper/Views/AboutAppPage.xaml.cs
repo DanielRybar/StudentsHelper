@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;
 using StudentsHelper.ViewModels;
 
 namespace StudentsHelper.Views;
@@ -8,6 +9,7 @@ public partial class AboutAppPage : ContentPage
     public AboutAppPage()
     {
         InitializeComponent();
+        On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetColor(Colors.Black);
         BindingContext = viewModel = new AboutAppViewModel();
     }
     protected override bool OnBackButtonPressed() => true;

@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;
 using CommunityToolkit.Mvvm.Messaging;
 using StudentsHelper.Constants;
 using StudentsHelper.Helpers;
@@ -21,6 +22,7 @@ public partial class ActiveTasksPage : ContentPage
     public ActiveTasksPage()
     {
         InitializeComponent();
+        On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetColor(Colors.Black);
         BindingContext = viewModel = new ActiveTasksViewModel();
         viewModel.TasksCountChanged += CheckToolbarItems;
     }

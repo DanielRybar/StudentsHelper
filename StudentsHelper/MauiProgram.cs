@@ -22,6 +22,10 @@ namespace StudentsHelper
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
+                })
+                .ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddHandler<Shell, Platforms.Android.Handlers.ExtendedShellHandler>();
                 });
 
             DependencyService.Register<ILocalStorage, LocalStorage>();

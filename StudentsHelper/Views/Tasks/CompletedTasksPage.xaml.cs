@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;
 using CommunityToolkit.Mvvm.Messaging;
 using StudentsHelper.Constants;
 using StudentsHelper.Helpers;
@@ -21,6 +22,7 @@ public partial class CompletedTasksPage : ContentPage
     public CompletedTasksPage()
     {
         InitializeComponent();
+        On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetColor(Colors.Black);
         BindingContext = viewModel = new CompletedTasksViewModel();
         viewModel.TasksCountChanged += CheckToolbarItems;
         viewModel.UpdatePage += () => isLoaded = false;
