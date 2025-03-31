@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Tasks.EditTaskPage"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             xmlns:controls="clr-namespace:StudentsHelper.Controls"
              HideSoftInputOnTapped="True"
              Title="Upravit úkol">
 
@@ -29,8 +30,13 @@
                 <FlexLayout Grid.Row="4" Style="{StaticResource TaskFlexLayout}">
                     <Label Text="Vyberte datum a čas splnění:" Style="{StaticResource HeaderActionLabel}" />
                     <HorizontalStackLayout Spacing="5">
-                        <DatePicker Format="d. M. yyyy" Date="{Binding DueDate}" MinimumDate="{x:Static sys:DateTime.Now}" FontSize="16" DateSelected="DatePicker_DateSelected" />
-                        <TimePicker Format="H:mm" Time="{Binding SelectedTime}" FontSize="16" TimeSelected="TimePicker_TimeSelected" />
+                        <controls:ExtendedDatePicker 
+                            Date="{Binding DueDate}" 
+                            MinimumDate="{x:Static sys:DateTime.Now}" 
+                            DateSelected="DatePicker_DateSelected" />
+                        <controls:ExtendedTimePicker
+                            Time="{Binding SelectedTime}" 
+                            TimeSelected="TimePicker_TimeSelected" />
                     </HorizontalStackLayout>
                 </FlexLayout>
                 <Button Grid.Row="5" Text="Připojit fotky" Clicked="AddPhotos_Clicked" Style="{StaticResource AddPhotoButton}" />

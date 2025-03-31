@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Platform;
 using MR.Gestures;
+using StudentsHelper.Controls;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Services;
 
@@ -26,6 +27,8 @@ namespace StudentsHelper
                 .ConfigureMauiHandlers(handlers =>
                 {
                     handlers.AddHandler<Shell, Platforms.Android.Handlers.ExtendedShellHandler>();
+                    handlers.AddHandler<ExtendedDatePicker, Platforms.Android.Handlers.ExtendedDatePickerHandler>();
+                    handlers.AddHandler<ExtendedTimePicker, Platforms.Android.Handlers.ExtendedTimePickerHandler>();
                 });
 
             DependencyService.Register<ILocalStorage, LocalStorage>();
