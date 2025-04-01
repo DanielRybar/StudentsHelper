@@ -72,7 +72,7 @@ public partial class ActiveTasksPage : ContentPage
         {
             CheckEmptyView(count);
             this.ToolbarItems.Clear();
-            if (count > 0)
+            if (count >= 2)
             {
                 this.ToolbarItems.Add(new ToolbarItem()
                 {
