@@ -2,11 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Notes.AddNotePage"
+             xmlns:vm="clr-namespace:StudentsHelper.ViewModels.Notes"
+             x:DataType="{x:Type vm:AddNoteViewModel}"
              HideSoftInputOnTapped="True"
              Title="Vytvořit novou poznámku">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddNoteCommand}" IconImageSource="{StaticResource SaveIcon}" Clicked="AddNote_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <Grid>
         <Grid Margin="10" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
             <Grid.RowDefinitions>
@@ -20,10 +24,10 @@
                 <Editor x:Name="ContentEditor" Text="{Binding Content}" Style="{StaticResource NoteContent}" />
             </ScrollView>
         </Grid>
-        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" Spacing="5">
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsBusy}" Spacing="5">
             <ActivityIndicator Color="{StaticResource MainHelperColor}" IsRunning="True" />
             <Label Text="{StaticResource SavingData}" />
         </VerticalStackLayout>
     </Grid>
-
+    
 </ContentPage>

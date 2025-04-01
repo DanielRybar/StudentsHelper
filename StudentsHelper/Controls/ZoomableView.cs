@@ -1,6 +1,11 @@
 ﻿namespace StudentsHelper.Controls
 {
     // Provided by Skeleton Software
+    #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    #pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
+    #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+    #pragma warning disable CS8629 // Nullable value type may be null.
     public class ZoomableView : MR.Gestures.ContentView
     {
         private double? previousCenterX = null;

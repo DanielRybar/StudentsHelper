@@ -53,12 +53,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\Tasks\DetailTaskPage.xaml.cs">
-	    <DependentUpon>DetailTaskPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\GlobalResources.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

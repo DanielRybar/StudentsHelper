@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.SettingsPage"
+             xmlns:vm="clr-namespace:StudentsHelper.ViewModels"
+             x:DataType="{x:Type vm:SettingsViewModel}"
              Title="Nastavení">
+    
     <Grid Padding="15,10,15,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -41,4 +44,5 @@
         </VerticalStackLayout>
         <Image Grid.Row="4" Style="{StaticResource SettingsImage}" />
     </Grid>
+    
 </ContentPage>

@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Tasks.ImageCarouselPage"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:controls="clr-namespace:StudentsHelper.Controls"
+             xmlns:vm="clr-namespace:StudentsHelper.ViewModels.Tasks"
+             x:DataType="{x:Type vm:ImageCarouselViewModel}"
              Title="Detail obrázku">
 
     <Grid x:Name="CarouselLayout" IsVisible="False">
         <CarouselView x:Name="MainCarousel" ItemsSource="{Binding Photos}" CurrentItem="{Binding SelectedPhoto}" Style="{StaticResource TaskCarousel}">
             <CarouselView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="{x:Type sys:String}">
                     <controls:ZoomableView
                         PanStarted="ZoomableView_GestureStarted"
                         PanEnded="ZoomableView_GestureEnded"
@@ -16,7 +19,7 @@
                         PinchEnded="ZoomableView_GestureEnded"
                         DoubleTapStarted="ZoomableView_GestureStarted"
                         DoubleTapEnded="ZoomableView_GestureEnded">
-                        <ContentView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <ContentView HorizontalOptions="Fill" VerticalOptions="Fill">
                             <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" />
                         </ContentView>
                     </controls:ZoomableView>
@@ -30,4 +33,5 @@
             </HorizontalStackLayout>
         </Border>
     </Grid>
+    
 </ContentPage>

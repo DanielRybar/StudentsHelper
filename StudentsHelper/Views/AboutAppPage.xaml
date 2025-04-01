@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.AboutAppPage"
+             xmlns:vm="clr-namespace:StudentsHelper.ViewModels"
+             x:DataType="{x:Type vm:AboutAppViewModel}"
              Title="O aplikaci">
+    
     <ScrollView Style="{StaticResource AboutAppMainView}">
         <VerticalStackLayout Style="{StaticResource AboutAppLayoutView}">
             <VerticalStackLayout Spacing="15">
@@ -31,4 +34,5 @@
             <Button Command="{Binding SendFeedbackCommand}" Text="Odeslat zpětnou vazbu" Style="{StaticResource AboutAppFeedbackButton}" />
         </VerticalStackLayout>
     </ScrollView>
+    
 </ContentPage>
