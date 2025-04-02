@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.Messaging;
 using StudentsHelper.Interfaces;
 using StudentsHelper.Models;
 using StudentsHelper.Models.Messages;
@@ -80,8 +81,7 @@ namespace StudentsHelper.ViewModels.Tasks
                         }
                         if (result is not null)
                         {
-                            if (result.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase)
-                            || result.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
+                            if (result.ContentType == "image/jpeg")
                             {
                                 string uniqueFileName = $"{Guid.NewGuid()}_{result.FileName}";
                                 string localPath = Path.Combine(FileSystem.CacheDirectory, uniqueFileName);
@@ -97,6 +97,10 @@ namespace StudentsHelper.ViewModels.Tasks
                                     Debug.WriteLine("Unable to save photo with path " + localPath);
                                     Debug.WriteLine(ex.Message);
                                 }
+                            }
+                            else
+                            {
+                                await Toast.Make("Obrázek má nepodporovaný formát.").Show();
                             }
                         }
                     }

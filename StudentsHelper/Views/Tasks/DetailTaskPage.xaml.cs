@@ -24,7 +24,7 @@ public partial class DetailTaskPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await Task.Delay(500);
+        await Task.Delay(700);
         MainLayout.IsVisible = true;
         shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();

@@ -18,7 +18,7 @@ public partial class EditTaskPage : ContentPage
     protected async override void OnAppearing()
     {
         base.OnAppearing();
-        await Task.Delay(500);
+        await Task.Delay(700);
         MainLayout.IsVisible = true;
     }
 

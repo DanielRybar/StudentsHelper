@@ -18,15 +18,15 @@
                 <Label Text="{Binding Title}" Style="{StaticResource DetailTaskHeader}" />
                 <Border Style="{StaticResource CRUDBorder}" />
                 <FlexLayout Style="{StaticResource DetailFlexLayout}">
-                    <VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="Center">
                         <Label Text="Vytvoření:" Style="{StaticResource HeaderActionLabel}" />
                         <Label Text="{Binding DateCreated, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateAndTime}}" />
                     </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        <Label Text="Dokončeno:" Style="{StaticResource HeaderActionLabel}" />
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Do:" Style="{StaticResource HeaderActionLabel}" />
                         <Image Source="{Binding IsCompleted, Converter={StaticResource TaskStatusToIconConverter}}" />
                     </VerticalStackLayout>
-                    <VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="Center">
                         <Label Text="Splnění:"  Style="{StaticResource HeaderActionLabel}" />
                         <Label Text="{Binding DateDue, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateAndTime}}" />
                     </VerticalStackLayout>
