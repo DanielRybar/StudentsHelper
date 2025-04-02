@@ -49,7 +49,11 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="MR.Gestures" Version="5.0.0" />
-		<PackageReference Include="sqlite-net-pcl" Version="1.10.196-beta" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+		<PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.android" Version="2.1.11" />
 	</ItemGroup>
 
 	<ItemGroup>
