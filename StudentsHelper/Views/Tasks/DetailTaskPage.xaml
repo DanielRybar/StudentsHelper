@@ -23,7 +23,7 @@
                         <Label Text="{Binding DateCreated, Converter={StaticResource DateTimeToFormattedStringConverter}, ConverterParameter={StaticResource IsDateAndTime}}" />
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="Center">
-                        <Label Text="Do:" Style="{StaticResource HeaderActionLabel}" />
+                        <Label Text="Dokončeno:" Style="{StaticResource HeaderActionLabel}" />
                         <Image Source="{Binding IsCompleted, Converter={StaticResource TaskStatusToIconConverter}}" />
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="Center">
