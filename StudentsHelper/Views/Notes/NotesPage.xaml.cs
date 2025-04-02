@@ -112,7 +112,7 @@ public partial class NotesPage : ContentPage
 
     private async void LongPress_RemoveItem(object sender, CommunityToolkit.Maui.Core.LongPressCompletedEventArgs e)
     {
-        if (sender is Grid grid && grid.BindingContext is NoteItem note)
+        if (sender is Grid grid && grid.BindingContext is NoteItem note && !isLongPress && !isItemClicked)
         {
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             isLongPress = true;

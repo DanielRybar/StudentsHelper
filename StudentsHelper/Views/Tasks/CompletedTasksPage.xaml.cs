@@ -126,7 +126,7 @@ public partial class CompletedTasksPage : ContentPage
 
     private async void LongPress_ItemOptions(object sender, CommunityToolkit.Maui.Core.LongPressCompletedEventArgs e)
     {
-        if (sender is Grid grid && grid.BindingContext is TaskItem task)
+        if (sender is Grid grid && grid.BindingContext is TaskItem task && !isLongPress && !isItemClicked)
         {
             HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
             isLongPress = true;
