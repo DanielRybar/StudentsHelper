@@ -47,7 +47,7 @@
                         <GridItemsLayout Orientation="Vertical" Span="3" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type sys:String}">
+                        <DataTemplate x:DataType="{x:Type x:String}">
                             <Border Style="{StaticResource TaskGalleryBorder}">
                                 <Grid>
                                     <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="AspectFill">

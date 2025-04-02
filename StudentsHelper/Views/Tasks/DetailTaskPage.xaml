@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsHelper.Views.Tasks.DetailTaskPage"
-             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:vm="clr-namespace:StudentsHelper.ViewModels.Tasks"
              x:DataType="{x:Type vm:DetailTaskViewModel}"
              Title="Detaily úkolu">
@@ -58,7 +57,7 @@
                         <GridItemsLayout Orientation="Vertical" Span="3" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type sys:String}">
+                        <DataTemplate x:DataType="{x:Type x:String}">
                             <Border Style="{StaticResource TaskGalleryBorder}">
                                 <Image Source="{Binding ., Converter={StaticResource FilePathToImageSourceConverter}}" Aspect="AspectFill">
                                     <Image.GestureRecognizers>
