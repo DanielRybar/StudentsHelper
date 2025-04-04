@@ -40,7 +40,16 @@
                                                                     StringFormat='Splnit do: {0}'}" />  
                                     </VerticalStackLayout>
                                     <VerticalStackLayout Grid.Column="1" Style="{StaticResource TaskPhotoIcon}">
-                                        <Image Source="{StaticResource ImageIcon}" />
+                                        <Image Style="{StaticResource PhotoIconImage}" IsVisible="{AppThemeBinding Light=True, Dark=False}">
+                                            <Image.Behaviors>
+                                                <toolkit:IconTintColorBehavior TintColor="{StaticResource Black}" />
+                                            </Image.Behaviors>
+                                        </Image>
+                                        <Image Style="{StaticResource PhotoIconImage}" IsVisible="{AppThemeBinding Light=False, Dark=True}">
+                                            <Image.Behaviors>
+                                                <toolkit:IconTintColorBehavior TintColor="{StaticResource White}" />
+                                            </Image.Behaviors>
+                                        </Image>
                                         <Label Text="{Binding Photos, Converter={StaticResource CollectionToCountConverter}}" Style="{StaticResource CenteredLabel}" FontSize="14" />
                                     </VerticalStackLayout>
                                 </Grid>

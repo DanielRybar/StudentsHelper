@@ -82,13 +82,6 @@
         Glyph="&#xf017;" />
 
     <FontImageSource
-        x:Key="ImageIcon"
-        FontFamily="FontAwesomeSolid"
-        Size="15"
-        Color="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
-        Glyph="&#xf03e;" />
-
-    <FontImageSource
         x:Key="ImageStatusIcon"
         FontFamily="FontAwesomeSolid"
         Size="15"

@@ -510,7 +510,7 @@
 
     <Style TargetType="VerticalStackLayout" x:Key="TaskPhotoIcon">
         <Setter Property="HorizontalOptions" Value="End" />
-        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="Padding" Value="0,0,10,0" />
         <Setter Property="Spacing" Value="3" />
     </Style>
@@ -564,15 +564,15 @@
     <Style TargetType="Button" x:Key="RemovePhotoButton">
         <Setter Property="MaximumHeightRequest" Value="20" />
         <Setter Property="MaximumWidthRequest" Value="20" />
-        <Setter Property="VerticalOptions" Value="StartAndExpand" />
-        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+        <Setter Property="VerticalOptions" Value="Start" />
+        <Setter Property="HorizontalOptions" Value="End" />
         <Setter Property="BackgroundColor" Value="{StaticResource MainHelperColorLight}" />
         <Setter Property="CornerRadius" Value="0" />
     </Style>
 
     <Style TargetType="Image" x:Key="RemoveButtonIcon">
-        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
-        <Setter Property="VerticalOptions" Value="StartAndExpand" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="VerticalOptions" Value="Start" />
         <Setter Property="HeightRequest" Value="15" />
         <Setter Property="WidthRequest" Value="15" />
         <Setter Property="Margin" Value="0,2.5,2.5,0" />
@@ -588,8 +588,8 @@
     </Style>
 
     <Style TargetType="Border" x:Key="TaskBorder">
-        <Setter Property="VerticalOptions" Value="StartAndExpand" />
-        <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+        <Setter Property="VerticalOptions" Value="Start" />
+        <Setter Property="HorizontalOptions" Value="End" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource MenuBackgroundColorLight}, Dark={StaticResource Black}}" />
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,20" />
@@ -630,21 +630,27 @@
 
     <Style TargetType="Image" x:Key="SettingsImage">
         <Setter Property="Source" Value="{AppThemeBinding Light=logo_dark.png, Dark=logo_light.png}" />
-        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="Opacity" Value=".2" />
         <Setter Property="MaximumHeightRequest" Value="230" />
         <Setter Property="MaximumWidthRequest" Value="230" />
     </Style>
 
+    <Style TargetType="Image" x:Key="PhotoIconImage">
+        <Setter Property="Source" Value="image_icon.png" />
+        <Setter Property="WidthRequest" Value="16" />
+        <Setter Property="WidthRequest" Value="16" />
+    </Style>
+
     <Style TargetType="ScrollView" x:Key="AboutAppMainView">
         <Setter Property="Orientation" Value="Vertical" />
-        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-        <Setter Property="VerticalOptions" Value="FillAndExpand" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="Fill" />
     </Style>
 
     <Style TargetType="VerticalStackLayout" x:Key="AboutAppLayoutView">
-        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
         <Setter Property="Spacing" Value="35" />
         <Setter Property="Padding" Value="20" />
     </Style>
