@@ -26,7 +26,7 @@ public partial class NotesPage : ContentPage
         viewModel.NotesCountChanged += CheckToolbarItems;
     }
 
-    protected async override void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
         if (!isLoaded)
@@ -39,7 +39,6 @@ public partial class NotesPage : ContentPage
         {
             RefreshButton.IsVisible = visibilityChoice == UpdateButtonVisibilityChoices.ChoicesDictionary.First().Value;
         }
-        await MainCollectionView.ResetAnimation();
     }
 
     private void CheckToolbarItems(int count)
@@ -128,18 +127,12 @@ public partial class NotesPage : ContentPage
         if (sender is Grid grid && !isLongPress && !isItemClicked)
         {
             isItemClicked = true;
-            await AnimateTile(grid);
+            await grid.ApplyScaleClickAnimation(0.8);
             await Shell.Current.GoToAsync(nameof(EditNotePage));
             WeakReferenceMessenger.Default.Send(new EditingNoteMessage((grid.BindingContext as NoteItem)!));
             isItemClicked = false;
+            await grid.ResetAnimation();
         }
-    }
-
-    private static async Task AnimateTile(Grid grid)
-    {
-        await Task.Delay(100);
-        await grid.ScaleTo(0.8, 100);
-        await grid.ScaleTo(1, 100);
     }
 
     protected override bool OnBackButtonPressed() => true;

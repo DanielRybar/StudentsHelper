@@ -28,7 +28,7 @@ public partial class CompletedTasksPage : ContentPage
         viewModel.UpdatePage += () => isLoaded = false;
     }
 
-    protected async override void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
         if (!isLoaded)
@@ -43,7 +43,6 @@ public partial class CompletedTasksPage : ContentPage
         }
         shakeDetector.OnShaken += OnShakeDetected;
         shakeDetector.Start();
-        await MainCollectionView.ResetAnimation();
     }
 
     protected override void OnDisappearing()
@@ -142,18 +141,12 @@ public partial class CompletedTasksPage : ContentPage
         if (sender is Grid grid && !isLongPress && !isItemClicked)
         {
             isItemClicked = true;
-            await AnimateTile((grid.Children[0] as Grid)!);
+            await (grid.Children[0] as Grid)!.ApplyScaleClickAnimation(0.8);
             await Shell.Current.GoToAsync(nameof(DetailTaskPage));
             WeakReferenceMessenger.Default.Send(new DetailTaskMessage((grid.BindingContext as TaskItem)!));
             isItemClicked = false;
+            await (grid.Children[0] as Grid)!.ResetAnimation();
         }
-    }
-
-    private static async Task AnimateTile(Grid grid)
-    {
-        await Task.Delay(100);
-        await grid.ScaleTo(0.8, 100);
-        await grid.ScaleTo(1, 100);
     }
 
     protected override bool OnBackButtonPressed() => true;
