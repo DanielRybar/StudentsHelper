@@ -13,6 +13,7 @@ namespace StudentsHelper.ViewModels.Notes
         private string title = string.Empty;
         private string content = string.Empty;
         private NoteItem noteItem;
+        private readonly string defaultTitle = "Nová poznámka";
         #endregion
 
         #region services
@@ -27,7 +28,7 @@ namespace StudentsHelper.ViewModels.Notes
                 if (m.Value is not null)
                 {
                     noteItem = m.Value;
-                    Title = noteItem.Title.Length == 50 ? noteItem.Title[..49] : noteItem.Title;
+                    Title = noteItem.Title;
                     Content = noteItem.Content;
                 }
             });
@@ -38,7 +39,7 @@ namespace StudentsHelper.ViewModels.Notes
                     var item = new NoteItem
                     {
                         Id = noteItem is not null ? noteItem.Id : 0,
-                        Title = string.IsNullOrEmpty(Title) ? "Nová poznámka" : Title,
+                        Title = string.IsNullOrEmpty(Title) ? defaultTitle : Title,
                         Content = Content
                     };
                     IsBusy = true;

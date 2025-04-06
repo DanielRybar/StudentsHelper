@@ -18,6 +18,7 @@ namespace StudentsHelper.ViewModels.Tasks
         private DateTime dueDate = DateTime.Now.AddDays(1);
         private TimeSpan selectedTime = new(23, 59, 0);
         private ObservableCollection<string> photos = [];
+        private readonly string defaultTitle = "Nový úkol";
         #endregion
 
         #region services
@@ -53,7 +54,7 @@ namespace StudentsHelper.ViewModels.Tasks
                     }
                     var task = new TaskItem
                     {
-                        Title = string.IsNullOrEmpty(Title) ? "Nový úkol" : Title,
+                        Title = string.IsNullOrEmpty(Title) ? defaultTitle : Title,
                         Description = Description,
                         DateDue = DueDate.Date + SelectedTime,
                         Photos = newPhotos

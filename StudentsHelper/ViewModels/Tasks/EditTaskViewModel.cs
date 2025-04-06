@@ -20,6 +20,7 @@ namespace StudentsHelper.ViewModels.Tasks
         private TimeSpan selectedTime = new(23, 59, 0);
         private ObservableCollection<string> photos = [];
         private TaskItem taskItem;
+        private readonly string defaultTitle = "Nový úkol";
         #endregion
 
         #region services
@@ -34,11 +35,11 @@ namespace StudentsHelper.ViewModels.Tasks
                 if (m.Value is not null)
                 {
                     taskItem = m.Value;
-                    Title = taskItem.Title.Length == 50 ? taskItem.Title[..49] : taskItem.Title;
+                    Title = taskItem.Title;
                     Description = taskItem.Description;
                     DueDate = taskItem.DateDue < DateTime.Now ? DateTime.Now.AddDays(1) : taskItem.DateDue;
                     SelectedTime = taskItem.DateDue.TimeOfDay;
-                    Photos = new ObservableCollection<string>(taskItem.Photos);
+                    Photos = [.. taskItem.Photos];
                 }
             });
 
@@ -147,7 +148,7 @@ namespace StudentsHelper.ViewModels.Tasks
                                 }
                             }
                         }
-                        taskItem.Title = string.IsNullOrEmpty(Title) ? "Nový úkol" : Title;
+                        taskItem.Title = string.IsNullOrEmpty(Title) ? defaultTitle : Title;
                         taskItem.Description = Description;
                         taskItem.DateDue = DueDate.Date + SelectedTime;
                         taskItem.Photos = newPhotos;

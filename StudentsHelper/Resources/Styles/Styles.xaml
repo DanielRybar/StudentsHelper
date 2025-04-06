@@ -482,7 +482,7 @@
     <Style TargetType="Entry" x:Key="NoteName">
         <Setter Property="Placeholder" Value="Název poznámky" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="MaxLength" Value="50" />
+        <Setter Property="MaxLength" Value="51" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray200}}" />
     </Style>
 

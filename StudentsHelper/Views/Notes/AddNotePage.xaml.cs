@@ -16,12 +16,13 @@ public partial class AddNotePage : ContentPage
 
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (sender is Entry)
+        if (sender is Entry entry)
         {
             int length = e.NewTextValue.Length;
-            if (length == 50)
+            if (length == entry.MaxLength)
             {
-                await Toast.Make("Maximální délka názvu je 50 znaků.").Show();
+                entry.Text = e.NewTextValue[..(entry.MaxLength - 1)];
+                await Toast.Make($"Maximální délka názvu je {entry.MaxLength - 1} znaků.").Show();
             }
         }
     }
