@@ -9,6 +9,8 @@ namespace StudentsHelper.Views.Tasks;
 public partial class AddTaskPage : ContentPage
 {
     private readonly AddTaskViewModel viewModel;
+    private bool isItemClicked = false;
+
     public AddTaskPage()
     {
         InitializeComponent();
@@ -97,12 +99,15 @@ public partial class AddTaskPage : ContentPage
 
     private async void Image_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is Image image)
+        if (sender is Image image && !isItemClicked)
         {
+            isItemClicked = true;
             await Shell.Current.GoToAsync(nameof(ImageCarouselPage));
             WeakReferenceMessenger.Default.Send(
                 new ImageDetailMessage(
                     new Models.MessageModels.PhotoModel([.. viewModel.Photos], (image.BindingContext as string)!)));
+            await Task.Delay(100);
+            isItemClicked = false;
         }
     }
 }

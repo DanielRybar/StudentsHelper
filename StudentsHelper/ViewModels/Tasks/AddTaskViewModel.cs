@@ -82,7 +82,7 @@ namespace StudentsHelper.ViewModels.Tasks
                         }
                         if (result is not null)
                         {
-                            if (result.ContentType == "image/jpeg")
+                            if (result.ContentType == "image/jpeg" || result.ContentType == "image/png")
                             {
                                 string uniqueFileName = $"{Guid.NewGuid()}_{result.FileName}";
                                 string localPath = Path.Combine(FileSystem.CacheDirectory, uniqueFileName);

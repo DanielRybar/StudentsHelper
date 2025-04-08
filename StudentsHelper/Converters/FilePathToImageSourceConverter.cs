@@ -6,9 +6,9 @@ namespace StudentsHelper.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is string filePath)
+            if (value is string filePath && File.Exists(filePath))
             {
-                return ImageSource.FromFile(filePath);
+                return ImageSource.FromStream(() => File.OpenRead(filePath));
             }
             return value;
         }

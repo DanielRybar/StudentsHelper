@@ -9,6 +9,8 @@ namespace StudentsHelper.Views.Tasks;
 public partial class EditTaskPage : ContentPage
 {
     private readonly EditTaskViewModel viewModel;
+    private bool isItemClicked = false;
+
     public EditTaskPage()
     {
         InitializeComponent();
@@ -18,7 +20,7 @@ public partial class EditTaskPage : ContentPage
     protected async override void OnAppearing()
     {
         base.OnAppearing();
-        await Task.Delay(700);
+        await Task.Delay(800);
         MainLayout.IsVisible = true;
     }
 
@@ -104,12 +106,15 @@ public partial class EditTaskPage : ContentPage
 
     private async void Image_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is Image image)
+        if (sender is Image image && !isItemClicked)
         {
+            isItemClicked = true;
             await Shell.Current.GoToAsync(nameof(ImageCarouselPage));
             WeakReferenceMessenger.Default.Send(
                 new ImageDetailMessage(
                     new Models.MessageModels.PhotoModel([.. viewModel.Photos], (image.BindingContext as string)!)));
+            await Task.Delay(100);
+            isItemClicked = false;
         }
     }
 }
