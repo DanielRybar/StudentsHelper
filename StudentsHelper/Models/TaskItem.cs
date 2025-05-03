@@ -1,9 +1,9 @@
 ﻿using SQLite;
-using StudentsHelper.ViewModels.Abstract;
+using StudentsHelper.Models.Abstract;
 
 namespace StudentsHelper.Models
 {
-    public class TaskItem : BaseViewModel
+    public class TaskItem : BaseModel
     {
         private int id;
         private string title = string.Empty;
