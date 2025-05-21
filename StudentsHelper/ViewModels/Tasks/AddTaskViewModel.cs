@@ -84,6 +84,15 @@ namespace StudentsHelper.ViewModels.Tasks
                         {
                             if (result.ContentType == "image/jpeg" || result.ContentType == "image/png")
                             {
+                                var options = new Android.Graphics.BitmapFactory.Options { InJustDecodeBounds = true };
+                                Android.Graphics.BitmapFactory.DecodeFile(result.FullPath, options);
+                                float ratioWidthToHeight = (float)options.OutWidth / (options.OutHeight != 0 ? options.OutHeight : 1);
+                                float ratioHeightToWidth = (float)options.OutHeight / (options.OutWidth != 0 ? options.OutWidth : 1);
+                                if (ratioWidthToHeight > 10 || ratioHeightToWidth > 10)
+                                {
+                                    await Toast.Make("Obrázek má extrémní poměr stran.").Show();
+                                    return;
+                                }
                                 string uniqueFileName = $"{Guid.NewGuid()}_{result.FileName}";
                                 string localPath = Path.Combine(FileSystem.CacheDirectory, uniqueFileName);
                                 using var stream = await result.OpenReadAsync();

@@ -93,6 +93,7 @@ namespace StudentsHelper.ViewModels.Tasks
                         {
                             PendingTasks.Add(item);
                         }
+                        TasksCountChanged?.Invoke(PendingTasks.Count);
                         IsBusy = false;
                     }
                 }
